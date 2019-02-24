@@ -14,6 +14,8 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.12",
     "vue": "^2.6.6",
+    "vue-bootstrap-typeahead": "^0.2.6",
+    "vue-router": "^3.0.2",
     "vuex": "^3.1.0"
   },
   "devDependencies": {
