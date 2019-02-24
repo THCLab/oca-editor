@@ -5,7 +5,7 @@
         <b-table striped hover :fields="attr_fields" :items="schemas">
 
           <template slot="actions" slot-scope="data">
-                  <b-button variant="link" @click="showSchema(data.item.name)">
+                  <b-button variant="link" :to="{ name: 'schemas', params: { id: data.item.name } }">
                     <font-awesome-icon icon="edit"></font-awesome-icon>
                   </b-button>
                   <b-button

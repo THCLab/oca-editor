@@ -147,7 +147,7 @@ export default {
     onCreateSchema() {
       var self = this;
       self.$store.commit("addSchema", self.form);
-      this.$router.push("/schema");
+      this.$router.push("schemas");
     },
     onReset() {
       this.form.attr_names = [];
