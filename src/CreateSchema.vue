@@ -6,7 +6,7 @@
       </b-col>
 
       <b-col sm="10" lg="81">
-        <b-form @submit="onSubmit" @reset="onReset">
+        <b-form @submit.prevent @reset="onReset">
           <b-form-group
             id="nameGroup"
             description="Name of the schema base which you are creating. E.g. Driving licence"
@@ -95,7 +95,7 @@
           </b-form-row>
           <b-row>
             <b-col>
-              <b-button type="submit" variant="primary">Submit</b-button>
+              <b-button @click="onCreateSchema" type="submit" variant="primary">Create</b-button>
             </b-col>
             <b-col>
               <b-button type="reset" variant="danger">Reset</b-button>
@@ -144,12 +144,13 @@ export default {
     isPII(attr) {
       return this.bit.includes(attr);
     },
-    onSubmit() {
-      console.log("onSubmit");
-      this.$router.go("/schema");
+    onCreateSchema() {
+      var self = this;
+      self.$store.commit("addSchema", self.form);
+      this.$router.push("/schema");
     },
     onReset() {
-      console.log("onReset");
+      this.form.attr_names = [];
     },
     format(value, event) {
       // TODO restrict to numbers, latters and underscore
