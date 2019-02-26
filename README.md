@@ -1,7 +1,10 @@
 # tool
 
+Tool for creating and dealing with schema base & overlays.
+
 ## Project setup
 ```
+nvm use
 npm install
 ```
 
@@ -13,11 +16,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Run your tests
-```
-npm run test
 ```
 
 ### Lints and fixes files
