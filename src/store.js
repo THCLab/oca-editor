@@ -4,14 +4,22 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    strict: process.env.NODE_ENV !== 'production',
+    strict: false, //process.env.NODE_ENV !== 'production',
     state: {
         schemas: JSON.parse(localStorage.getItem("schemas") || "[]"),
+        selectedSchema: "",
+        name: ""
     },
     mutations: {
         addSchema(state, schema) {
             state.schemas.push(schema)
             localStorage.setItem("schemas", JSON.stringify(state.schemas))
+        },
+        selectSchema(state, schema) {
+            state.selectedSchema = schema
+        },
+        updateSchema(state, schema) {
+            state.selectedSchema = schema
         }
     },
     getters: {
@@ -28,5 +36,8 @@ export default new Vuex.Store({
         addSchema(context, schema) {
             context.commit("addSchema", schema);
         },
+        selectSchema(context, schema) {
+            context.commit("selectSchema", schema)
+        }
     },
 });
