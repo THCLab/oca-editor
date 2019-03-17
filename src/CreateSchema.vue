@@ -73,7 +73,8 @@
                       textVariant="danger"
                       @hit="addAttribute"
                       v-model="attribute"
-                      :data="bit"
+                      @keyup.enter.native='addAttribute'
+                      :data="default_bit"
                     >
                       <template slot="suggestion" slot-scope="{ data, htmlText }">
                         PII:
@@ -85,7 +86,7 @@
                 </b-col>
                 <b-col cols="4">
                   <b-col align-hself="start" align-h="start" cols="2">
-                    <b-button variant="primary" @click="addAttribute">
+                    <b-button type="button" variant="primary" @click="addAttribute">
                       <font-awesome-icon icon="plus"></font-awesome-icon>
                     </b-button>
                   </b-col>
@@ -95,7 +96,7 @@
           </b-form-row>
           <b-row>
             <b-col>
-              <b-button @click="onCreateSchema" type="submit" variant="primary">Create</b-button>
+              <b-button @click="onCreateSchema" variant="primary">Create</b-button>
             </b-col>
             <b-col>
               <b-button type="reset" variant="danger">Reset</b-button>
