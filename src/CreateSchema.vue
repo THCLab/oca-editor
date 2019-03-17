@@ -48,16 +48,16 @@
                     <font-awesome-icon icon="times"></font-awesome-icon>
                   </b-button>
                   <b-button
-                    v-if="!isPII(data.item.name)"
+                    v-if="isPII(data.item.name)"
                     variant="outline-danger"
-                    @click="markPII(data.item.name)"
+                    @click="unmarkPII(data.item.name)"
                   >
                     <font-awesome-icon icon="lock"></font-awesome-icon>
                   </b-button>
                   <b-button
-                    v-if="isPII(data.item.name)"
+                    v-if="!isPII(data.item.name)"
                     variant="outline-success"
-                    @click="unmarkPII(data.item.name)"
+                    @click="markPII(data.item.name)"
                   >
                     <font-awesome-icon icon="unlock"></font-awesome-icon>
                   </b-button>
@@ -114,7 +114,7 @@ export default {
   name: "app",
   data() {
     return {
-      bit: [
+      default_bit: [
         "first_name",
         "last_name",
         "mac_address",
@@ -191,19 +191,18 @@ export default {
   },
   methods: {
     markPII(attr) {
-      this.bit.push(attr);
+      this.form.bit.push(attr);
     },
     unmarkPII(attr) {
-      this.bit = this.bit.filter(function(item) {
+      this.form.bit = this.form.bit.filter(function(item) {
         return item !== attr;
       });
     },
     isPII(attr) {
-      return this.bit.includes(attr);
+      return this.form.bit.includes(attr);
     },
     onCreateSchema() {
       var self = this;
-      self.form.bit = this.bit
       self.$store.commit("addSchema", self.form);
       this.$router.push("schemas");
     },
@@ -216,11 +215,15 @@ export default {
     },
     addAttribute() {
       var self = this;
+      let attr_name = self.attribute
       var index = self.form.attr_names.findIndex(function(item) {
         return item.name == self.attribute;
       });
       if (index == -1) {
-        self.form.attr_names.push({ name: self.attribute });
+        self.form.attr_names.push({ name: attr_name });
+        if (this.default_bit.includes(attr_name)) {
+          self.form.bit.push(attr_name)
+        }
       }
       self.attribute = "";
       // TODO above does not work as the input does not support that yet see #38
@@ -228,12 +231,9 @@ export default {
       this.$refs.attributeAutocomplete.inputValue = "";
     },
     removeAttribute(attr_name) {
-      console.log(attr_name);
       var index = this.form.attr_names.findIndex(function(item) {
-        console.log(item);
         return item.name == attr_name;
       });
-      console.log(index);
       this.$delete(this.form.attr_names, index);
     }
   }

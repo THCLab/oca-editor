@@ -12,8 +12,10 @@ export default new Vuex.Store({
     },
     mutations: {
         addSchema(state, schema) {
-            state.schemas.push(schema)
-            localStorage.setItem("schemas", JSON.stringify(state.schemas))
+            if (schema.name.length > 0) {
+                state.schemas.push(schema)
+                localStorage.setItem("schemas", JSON.stringify(state.schemas))
+            }
         },
         selectSchema(state, schema) {
             state.selectedSchema = schema

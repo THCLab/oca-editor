@@ -141,8 +141,8 @@ export default {
       if (overlay.name == "Encoding overlay") {
         this.encodingOverlayOn = overlay.on;
         this.labelOverlayOn = false;
-        console.log("encoding on");
       }
+
       this.overlay = overlay;
     }
   }
