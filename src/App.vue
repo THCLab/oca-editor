@@ -5,7 +5,7 @@
       <router-link to="/about">About</router-link>
     </div>
     <div class="main-layout">
-      <form-builder type="template" v-model="formData"></form-builder>
+      <form-builder type="template" v-model="formData" :options="formBuilderOptions"></form-builder>
     </div>
     <div class="text-right mt-3" style="margin: 0px 20px;">
       <button class="btn btn-default" @click="resetForm">Reset</button>
@@ -48,12 +48,15 @@ export default {
     name: "testName",
     formData: null,
     id: "",
-  }),
-  computed: {
-    getName() {
-      return this.name
+    formBuilderOptions: {
+      hooks: {
+        'Section.beforeAdd': function(sectionInfo) {
+          console.log(sectionInfo)
+        }
+        // https://github.com/sethsandaru/vue-form-builder/wiki/Template-Hooks
+      }
     }
-  },
+  }),
   methods: {
     resetForm() {
       this.formData.type = "";
