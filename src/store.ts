@@ -28,8 +28,8 @@ export default new Vuex.Store({
         getSchemas: state => {
             return state.schemas
         },
-        getSchema: state => name => {
-            return state.schemas.find(function (schema) {
+        getSchema: state => (name: any) => {
+            return state.schemas.find(function (schema: any) {
                 return schema.name == name
             })
         },
