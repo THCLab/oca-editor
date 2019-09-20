@@ -5,7 +5,7 @@ import BootstrapVue from 'bootstrap-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlus, faTimes, faLock, faUnlock, faEdit, faTrash, faLanguage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome'
-import { router } from "./router"
+import router from "@/router"
 import store from '@/store'
 
 library.add(faPlus, faTimes, faLock, faUnlock, faEdit, faTrash, faLanguage)
@@ -18,7 +18,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.use(Vuex)
 Vue.use(BootstrapVue)
-Vue.router = router
 Vue.config.productionTip = false
 
 new Vue({
