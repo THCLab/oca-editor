@@ -12,7 +12,7 @@
 
 <script>
 import VueBootstrapTypeahead from "vue-bootstrap-typeahead";
-import FormBuilder from 'v-form-builder';
+import FormBuilder from './FormBuilder';
 import {get_form, update_form, save_form} from "./persistence";
 
 export default {
