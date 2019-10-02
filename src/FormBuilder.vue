@@ -26,6 +26,7 @@
     // special hook
     import {ValidateSettingHandler} from "./template/handler/validate_setting_handler";
     import {CONTROL_TYPES} from "./config/control_constant";
+    import {FORM_CONSTANTS} from "./config/constants";
 
     export default {
         name: "FormBuilder",
@@ -45,9 +46,7 @@
             form: {
                 type: Object,
                 default:() => ({
-                    sections: [],
-                    layout: "",
-                    _uniqueId: Math.random()
+                    section: FORM_CONSTANTS.Section
                 })
             },
             value: null,

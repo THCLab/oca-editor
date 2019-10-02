@@ -1,18 +1,7 @@
-import {faEdit} from '@fortawesome/free-solid-svg-icons/faEdit';
-import {faCalculator} from '@fortawesome/free-solid-svg-icons/faCalculator';
-import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
-import {faClock} from '@fortawesome/free-solid-svg-icons/faClock';
-import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
-import {faDatabase} from '@fortawesome/free-solid-svg-icons/faDatabase';
+import {faEdit, faCalculator, faCalendarAlt, faClock, faCheck, faDatabase} from '@fortawesome/free-solid-svg-icons';
 
 var FORM_CONSTANTS = {};
 var CONTROL_CONSTANTS = {};
-
-FORM_CONSTANTS.SectionLayout = {
-  collapse: "Collapse",
-  tab: "Tab",
-  // inner: "Inner Parent",
-};
 
 FORM_CONSTANTS.Section = {
     name: "",

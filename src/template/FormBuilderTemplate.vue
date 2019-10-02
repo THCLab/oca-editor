@@ -36,13 +36,6 @@
                 type: Object
             }
         },
-        // data: () => ({
-        //     form: {
-        //         sections: [],
-        //         layout: "",
-        //         _uniqueId: Math.random()
-        //     }
-        // }),
         methods: {
             getValue() {
                 return this.form;
