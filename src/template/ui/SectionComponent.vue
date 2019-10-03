@@ -14,9 +14,6 @@
                 <div class="card">
                     <div class="card-body sectionBody">
                         <row-component :section="form.section"></row-component>
-                        <p style="text-align: left; margin-top: 15px;">
-                            <span class="pr-2 clickable" @click="addRow"><font-awesome-icon icon="plus"/> Add Row</span>
-                        </p>
                     </div>
                 </div>
 
@@ -59,23 +56,6 @@
                 // reset the current sections
                 this.form.sections = finalItems;
             },
-            addRow() {
-                var rowInfo = _.cloneDeep(FORM_CONSTANTS.Row);
-
-                // general row_name (id)
-                rowInfo.name = _.domUniqueID(this.form.section.name + '_row_');
-
-                // before hook
-                let b4Run = Hooks.Row.beforeAdd.runSequence(rowInfo, this.form.section);
-                if (b4Run === false) {
-                    return;
-                }
-
-                this.form.section.rows.push(rowInfo);
-
-                // after hook
-                Hooks.Row.afterAdd.run(rowInfo, this.form.section);
-            },
             preview() {
                 this.$parent.preview();
             }
@@ -102,8 +82,7 @@
 
 <style scoped>
     .sectionBody {
-        /*padding: 30px 0;*/
-        border-bottom: 1px solid rgba(0,0,0,.125);
+        padding: 0;
     }
 
     .clickable {

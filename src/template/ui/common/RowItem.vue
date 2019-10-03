@@ -1,8 +1,5 @@
 <template>
     <div class="col-md-12 mb-2 rowItem row" :id="row.name">
-        <div class="tools">
-            <font-awesome-icon icon="times" class="clickable" @click="removeRow(row.name)"></font-awesome-icon>
-        </div>
 
         <component v-for="(control, index) in row.controls"
                    :is="CONTROL_TYPES[control.type].source.template"
@@ -83,9 +80,6 @@
 
                 // reset the current sections
                 this.row.controls = finalItems;
-            },
-            removeRow(rowName) {
-                this.$emit('removeRow', rowName);
             },
 
             // control
@@ -190,9 +184,7 @@
 
 <style scoped>
     .rowItem {
-        border-radius: 10px;
-        background-color:rgba(0,0,0,.03);
-        padding: 30px 10px;
+        padding: 30px 30px;
         margin: 0;
         position: relative;
     }

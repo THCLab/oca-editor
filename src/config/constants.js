@@ -3,12 +3,19 @@ import {faEdit, faCalculator, faCalendarAlt, faClock, faCheck, faDatabase} from 
 var FORM_CONSTANTS = {};
 var CONTROL_CONSTANTS = {};
 
+FORM_CONSTANTS.Row = {
+    name: "",
+    label: "",
+    order: 0,
+    controls: [],
+};
+
 FORM_CONSTANTS.Section = {
     name: "",
     label: "",
     clientKey: "",
     order: 0,
-    rows: [],
+    row: FORM_CONSTANTS.Row,
 
     // config
     labelPosition: "left", // left or top
@@ -18,13 +25,6 @@ FORM_CONSTANTS.Section = {
     minInstance: 1,
     maxInstance: 0, //0 for unlimited
     instances: [], // for save data in GUI to easily to retrieve @@
-};
-
-FORM_CONSTANTS.Row = {
-    name: "",
-    label: "",
-    order: 0,
-    controls: [],
 };
 
 FORM_CONSTANTS.Control = {

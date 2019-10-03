@@ -23,7 +23,7 @@ export default {
   methods: {
     resetForm() {
       this.formData.type = "";
-      this.formData.sections = [];
+      this.formData.section.row.controls = [];
     },
     loadOldForm() {
       let data = get_form(this.name);
