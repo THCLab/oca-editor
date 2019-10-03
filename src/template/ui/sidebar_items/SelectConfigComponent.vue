@@ -8,9 +8,11 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Data Source</label> <br />
-                <label><input type="radio" name="isAjax" v-model="control.isAjax":value="false">Static Source</label>
-                <label><input type="radio" name="isAjax" v-model="control.isAjax" :value="true">Ajax Source</label>
+                <label class="source-label">Data Source</label>
+                <div class="source-type">
+                  <label><input type="radio" name="isAjax" v-model="control.isAjax" :value="false">Static Source</label>
+                  <label><input type="radio" name="isAjax" v-model="control.isAjax" :value="true">Ajax Source</label>
+                </div>
             </div>
 
             <table class="table table-bordered table-striped" v-if="!control.isAjax">
@@ -84,5 +86,11 @@
 </script>
 
 <style scoped>
-
+    .source-label {
+      font-weight: 600;
+    }
+    .source-type {
+        display: flex;
+        justify-content: space-between;
+    }
 </style>

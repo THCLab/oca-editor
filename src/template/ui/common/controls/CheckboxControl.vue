@@ -2,25 +2,23 @@
     <div class="controlItemWrapper" :class="control.className" :data-control-name="control.name">
         <div class="controlItem row" :id="control.name" v-if="labelPosition === 'left'">
             <div class="col-md-4">
-                <label :class="{'bold': control.labelBold, 'italic': control.labelItalic, 'underline': control.labelUnderline}">
-                    {{control.label}}
-                </label>
+                <label> {{control.label}} </label>
+                <span v-show="control.required"> *</span>
             </div>
             <div class="col-md-7 input-group">
                 <div class="text-center w-100">
-                    <input type="checkbox" :name="control.fieldName" :checked="control.isChecked">
+                    <input type="checkbox" :name="control.fieldName" :checked="control.isChecked" :disabled="control.readonly">
                 </div>
             </div>
             <div class="col-md-1"><slot /></div>
         </div>
         <div class="controlItem row" :id="control.name" v-else>
             <div class="form-group col-md-12">
-                <label :class="{'bold': control.labelBold, 'italic': control.labelItalic, 'underline': control.labelUnderline}">
-                    {{control.label}}
-                </label>
+                <label> {{control.label}} </label>
+                <span v-show="control.required"> *</span>
                 <div class="input-group">
                     <div class="text-center w-100">
-                        <input type="checkbox" :name="control.fieldName" :checked="control.isChecked">
+                        <input type="checkbox" :name="control.fieldName" :checked="control.isChecked" :disabled="control.readonly">
                     </div>
                 </div>
             </div>

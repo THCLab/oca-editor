@@ -2,9 +2,8 @@
     <div>
         <div class="row" v-if="labelPosition === 'left'">
             <div class="col-md-4">
-                <label :class="{'bold': control.labelBold, 'italic': control.labelItalic, 'underline': control.labelUnderline}">
-                    {{control.label}}
-                </label>
+                <label> {{control.label}} </label>
+                <span v-show="control.required"> *</span>
             </div>
             <div class="col-md-8">
                 <select2-control v-if="!control.isMultiple"
@@ -20,9 +19,8 @@
             </div>
         </div>
         <div class="form-group" v-else>
-            <label :class="{'bold': control.labelBold, 'italic': control.labelItalic, 'underline': control.labelUnderline}">
-                {{control.label}}
-            </label>
+            <label> {{control.label}} </label>
+            <span v-show="control.required"> *</span>
             <select2-control v-if="!control.isMultiple"
                              v-model="control.value"
                              :disabled="this.control.readonly"

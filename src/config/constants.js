@@ -98,21 +98,6 @@ FORM_CONSTANTS.Type = {
     },
 };
 
-FORM_CONSTANTS.WidthOptions = {
-    "col-md-1": "Width 1 parts",
-    "col-md-2": "Width 2 parts",
-    "col-md-3": "Width 3 parts",
-    "col-md-4": "Width 4 parts",
-    "col-md-5": "Width 5 parts",
-    "col-md-6": "Width 6 parts",
-    "col-md-7": "Width 7 parts",
-    "col-md-8": "Width 8 parts",
-    "col-md-9": "Width 9 parts",
-    "col-md-10": "Width 10 parts",
-    "col-md-11": "Width 11 parts",
-    "col-md-12": "Width 12 parts",
-};
-
 FORM_CONSTANTS.OptionDefault = {
     id: "",
     text: ""
