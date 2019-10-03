@@ -1,17 +1,13 @@
-import {faEdit} from '@fortawesome/free-solid-svg-icons/faEdit';
-import {faCalculator} from '@fortawesome/free-solid-svg-icons/faCalculator';
-import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
-import {faClock} from '@fortawesome/free-solid-svg-icons/faClock';
-import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck';
-import {faDatabase} from '@fortawesome/free-solid-svg-icons/faDatabase';
+import {faEdit, faCalculator, faCalendarAlt, faClock, faCheck, faDatabase} from '@fortawesome/free-solid-svg-icons';
 
 var FORM_CONSTANTS = {};
 var CONTROL_CONSTANTS = {};
 
-FORM_CONSTANTS.SectionLayout = {
-  collapse: "Collapse",
-  tab: "Tab",
-  // inner: "Inner Parent",
+FORM_CONSTANTS.Row = {
+    name: "",
+    label: "",
+    order: 0,
+    controls: [],
 };
 
 FORM_CONSTANTS.Section = {
@@ -19,7 +15,7 @@ FORM_CONSTANTS.Section = {
     label: "",
     clientKey: "",
     order: 0,
-    rows: [],
+    row: FORM_CONSTANTS.Row,
 
     // config
     labelPosition: "left", // left or top
@@ -31,13 +27,6 @@ FORM_CONSTANTS.Section = {
     instances: [], // for save data in GUI to easily to retrieve @@
 };
 
-FORM_CONSTANTS.Row = {
-    name: "",
-    label: "",
-    order: 0,
-    controls: [],
-};
-
 FORM_CONSTANTS.Control = {
     type: "",
     name: "",
@@ -46,7 +35,7 @@ FORM_CONSTANTS.Control = {
     order: 0,
     defaultValue: "",
     value: "",
-    className: 'col-md-4',
+    className: 'col-md-12',
     readonly: false,
 
     // label style
@@ -107,21 +96,6 @@ FORM_CONSTANTS.Type = {
         label:"Checkbox",
         icon: faCheck
     },
-};
-
-FORM_CONSTANTS.WidthOptions = {
-    "col-md-1": "Width 1 parts",
-    "col-md-2": "Width 2 parts",
-    "col-md-3": "Width 3 parts",
-    "col-md-4": "Width 4 parts",
-    "col-md-5": "Width 5 parts",
-    "col-md-6": "Width 6 parts",
-    "col-md-7": "Width 7 parts",
-    "col-md-8": "Width 8 parts",
-    "col-md-9": "Width 9 parts",
-    "col-md-10": "Width 10 parts",
-    "col-md-11": "Width 11 parts",
-    "col-md-12": "Width 12 parts",
 };
 
 FORM_CONSTANTS.OptionDefault = {

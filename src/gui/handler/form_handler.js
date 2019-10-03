@@ -2,19 +2,8 @@ import {FORM_CONSTANTS} from "@/config/constants";
 
 const FormHandler = {};
 
-function flattenControlInRows(rows) {
-    var controls = [];
-    _.each(rows, row => {
-        _.each(row.controls, control => {
-            controls.push(control);
-        });
-    });
-
-    return controls;
-}
-
-FormHandler.dynamicTemplate = function(rows) {
-    var controls = flattenControlInRows(rows);
+FormHandler.dynamicTemplate = function(row) {
+    var controls = row.controls;
     var controlData = {};
 
     _.each(controls, control => {
@@ -39,51 +28,37 @@ function getControlValue(control, selectorOutside) {
 FormHandler.getValue = function (form) {
     var formData = {};
 
-    // solving for static
-    _.each(form.sections, sectionInfo => {
-        if (sectionInfo.isDynamic) {
-            return;
-        }
-
+    if (!form.section.isDynamic) {
         var controlData = {};
 
-        // flatten rows
-        var controls = flattenControlInRows(sectionInfo.rows);
+        var controls = form.section.row.controls;
 
         // retrieve value in control
         _.each(controls, control => {
             // special get value
-            controlData[control.fieldName] = getControlValue(control, `#${sectionInfo.name}_gui_body`);
+            controlData[control.fieldName] = getControlValue(control, `#${form.section.name}_gui_body`);
         });
 
         // set data
-        formData[sectionInfo.clientKey] = controlData;
-    });
-
-    // solving for dynamic
-    _.each(form.sections, sectionInfo => {
-        if (!sectionInfo.isDynamic) {
-            return;
-        }
-
+        formData[form.section.clientKey] = controlData;
+    } else {
         var sectionData = [];
-        _.each(sectionInfo.instances, (instance, insIndex) => {
+        _.each(form.section.instances, (instance, insIndex) => {
             var controlData = {};
 
-            // flatten rows
-            var controls = flattenControlInRows(instance);
+            var controls = instance.controls;
 
             // retrieve value in control
             _.each(controls, control => {
-                controlData[control.fieldName] = getControlValue(control, `#${sectionInfo.name}_gui_body .rowDynamic_${insIndex}`);
+                controlData[control.fieldName] = getControlValue(control, `#${form.section.name}_gui_body .rowDynamic_${insIndex}`);
             });
 
             // populate data
             sectionData.push(controlData);
         });
 
-        formData[sectionInfo.clientKey] = sectionData;
-    });
+        formData[form.section.clientKey] = sectionData;
+    }
 
     return formData;
 };
@@ -102,43 +77,40 @@ function setControlValue(control, value, selectorOutside, firstInit = true) {
 
 FormHandler.setValue = function(form, values) {
     // though the values - static form first
-    _.each(values, (formData, key) => {
-        var sectionInfo = _.find(form.sections, {clientKey: key});
-        if (sectionInfo === undefined || sectionInfo.isDynamic) {
+    _.each(values, formData => {
+        if (form.section === undefined || form.section.isDynamic) {
             return;
         }
 
-        // flatten rows
-        var controls = flattenControlInRows(sectionInfo.rows);
+        var controls = form.section.row.controls;
         _.each(controls, controlInfo => {
             if (formData[controlInfo.fieldName]) {
-                setControlValue(controlInfo, formData[controlInfo.fieldName], `#${sectionInfo.name}_gui_body`, false);
+                setControlValue(controlInfo, formData[controlInfo.fieldName], `#${form.section.name}_gui_body`, false);
             }
         });
     });
 
     // for the dynamic form
-    _.each(values, (formData, key) => {
-        var sectionInfo = _.find(form.sections, {clientKey: key});
-        if (sectionInfo === undefined || !sectionInfo.isDynamic || !_.isArray(formData)) {
+    _.each(values, formData => {
+        if (form.section === undefined || !form.section.isDynamic || !_.isArray(formData)) {
             return;
         }
 
-        sectionInfo.instances = [];
+        form.section.instances = [];
         var insIndex = 0;
         _.each(formData, instanceData => {
-            var template = _.cloneDeep(sectionInfo.rows);
+            var template = _.cloneDeep(form.section.row);
 
             // push into a new instance
-            sectionInfo.instances.push(template);
+            form.section.instances.push(template);
 
             // populate data into it
-            var controls = flattenControlInRows(template);
+            var controls = template.controls;
 
             // push data to control
             _.each(controls, controlInfo => {
                 if (instanceData[controlInfo.fieldName]) {
-                    setControlValue(controlInfo, instanceData[controlInfo.fieldName], `#${sectionInfo.name}_gui_body .rowDynamic_${insIndex++}`);
+                    setControlValue(controlInfo, instanceData[controlInfo.fieldName], `#${form.section.name}_gui_body .rowDynamic_${insIndex++}`);
                 }
             });
         });
@@ -152,20 +124,18 @@ FormHandler.clearErrorField = function() {
 FormHandler.validate = function (form) {
     FormHandler.clearErrorField();
 
-    _.each(form.sections, sectionInfo => {
-        if (!sectionInfo.isDynamic) {
-            validate_static_form(sectionInfo);
-        } else {
-            validate_dynamic_form(sectionInfo);
-        }
-    });
+    if (!form.section.isDynamic) {
+        validate_static_form(form.section);
+    } else {
+        validate_dynamic_form(form.section);
+    }
 
     return ($("input.control-error").length > 0);
 };
 
 var validate_static_form = function (sectionInfo) {
     // flatten rows
-    var controls = flattenControlInRows(sectionInfo.rows);
+    var controls = sectionInfo.row.controls;
     _.each(controls, controlInfo => {
         if (!controlInfo.required) {
             return;
@@ -188,7 +158,7 @@ var validate_dynamic_form = function (sectionInfo) {
     _.each(sectionInfo.instances, (instance, insIndex) => {
 
         // flatten rows
-        var controls = flattenControlInRows(instance);
+        var controls = instance.controls;
 
         // retrieve value in control
         _.each(controls, controlInfo => {
@@ -212,37 +182,26 @@ var validate_dynamic_form = function (sectionInfo) {
 
 // re-structure (extend) to make sure the data is correct
 FormHandler.recorrectStructure = function (form) {
-    // section first
-    _.each(form.sections, (sectionInfo, secIndex) => {
-        // section re-build
-        let rows = _.cloneDeep(sectionInfo.rows);
-        form.sections[secIndex] = _.extend(_.cloneDeep(FORM_CONSTANTS.Section), sectionInfo);
-        form.sections[secIndex].rows = rows;
-    });
+    // section re-build
+    let row = _.cloneDeep(form.section.row);
+    form.section = _.extend(_.cloneDeep(FORM_CONSTANTS.Section), form.section);
+    form.section.row = row;
 
     // row
-    _.each(form.sections, (sectionInfo) => {
-        _.each(sectionInfo.rows, (rowInfo, rowIndex) => {
-            let controls = _.cloneDeep(rowInfo.controls);
-            sectionInfo.rows[rowIndex] = _.extend(_.cloneDeep(FORM_CONSTANTS.Row), rowInfo);
-            sectionInfo.rows[rowIndex].controls = controls;
-        });
-    });
+    let controls = _.cloneDeep(form.section.row.controls);
+    form.section.row = _.extend(_.cloneDeep(FORM_CONSTANTS.Row), form.section.row);
+    form.section.row.controls = controls;
 
     // control
-    _.each(form.sections, (sectionInfo) => {
-        _.each(sectionInfo.rows, (rowInfo) => {
-            _.each(rowInfo.controls, (controlInfo, index) => {
-                // prepare data deep
-                let staticSource = _.cloneDeep(controlInfo.dataOptions);
+    _.each(form.section.row.controls, (controlInfo, index) => {
+        // prepare data deep
+        let staticSource = _.cloneDeep(controlInfo.dataOptions);
 
-                // extend
-                rowInfo.controls[index] = _.extend(_.cloneDeep(FORM_CONSTANTS.Control), controlInfo);
+        // extend
+        form.section.row.controls[index] = _.extend(_.cloneDeep(FORM_CONSTANTS.Control), controlInfo);
 
-                // special information need to clone
-                rowInfo.controls[index].dataOptions = staticSource;
-            });
-        });
+        // special information need to clone
+        form.section.row.controls[index].dataOptions = staticSource;
     });
 
     return form;

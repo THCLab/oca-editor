@@ -1,8 +1,5 @@
 <template>
     <div>
-        <label>
-            <input type="checkbox" name="isMultiLine" v-model="control.isMultiLine"> Multi-line?
-        </label>
     </div>
 </template>
 

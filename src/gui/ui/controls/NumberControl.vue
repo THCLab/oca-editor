@@ -2,7 +2,8 @@
     <div>
         <div class="row" v-if="labelPosition === 'left'">
             <div class="col-md-4">
-                <label :class="{'bold': control.labelBold, 'italic': control.labelItalic, 'underline': control.labelUnderline}">{{control.label}}</label>
+                <label> {{control.label}} </label>
+                <span v-show="control.required"> *</span>
             </div>
             <div class="col-md-8">
                 <div class="input-group">
@@ -17,9 +18,8 @@
             </div>
         </div>
         <div class="form-group" v-else>
-            <label :class="{'bold': control.labelBold, 'italic': control.labelItalic, 'underline': control.labelUnderline}">
-                {{control.label}}
-            </label>
+            <label> {{control.label}} </label>
+            <span v-show="control.required"> *</span>
 
             <div class="input-group">
                 <input type="number"

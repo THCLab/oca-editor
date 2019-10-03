@@ -1,18 +1,10 @@
 <template>
     <div class="col-md-12 mb-2">
-        <div class="collapseFormItem">
+        <div class="formItem">
             <div class="title">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         {{section.label}}
-                    </div>
-                    <div class="col-md-4 text-right">
-                        <p>
-                            <span class="clickable" data-toggle="collapse" :data-target="'#' + section.name + '_gui_body'">
-                                <i class="fa fa-fw fa-chevron-up"></i>
-                                <i class="fa fa-fw fa-chevron-down"></i>
-                            </span>
-                        </p>
                     </div>
                 </div>
             </div>
@@ -29,7 +21,7 @@
     import {Hooks} from '@/gui/components/hook_lists';
 
     export default {
-        name: "CollapseSectionLayout",
+        name: "SectionLayout",
         components: {RowComponent},
         props: ['section'],
         created() {
@@ -49,18 +41,8 @@
         cursor: pointer;
     }
 
-    .collapseFormItem .title {
+    .formItem .title {
         font-weight: bold;
         border-bottom: 1px solid #000;
-    }
-
-    .collapseFormItem .collapsed .fa-chevron-up,
-    .collapseFormItem .fa-chevron-down {
-        display: none;
-    }
-
-    .collapseFormItem .collapsed .fa-chevron-down,
-    .collapseFormItem .fa-chevron-up {
-        display: inline-block;
     }
 </style>

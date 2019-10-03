@@ -1,16 +1,14 @@
 <template>
     <div class="col-md-12 mb-2 rowItem row" :id="row.name">
-        <div class="tools">
-            <font-awesome-icon icon="times" class="clickable" @click="removeRow(row.name)"></font-awesome-icon>
-        </div>
 
         <component v-for="(control, index) in row.controls"
                    :is="CONTROL_TYPES[control.type].source.template"
                    :key="control.name"
                    :control="control"
-                   @dblclick.native="openConfig(control)"
                    :ref="control.name"
                    :label-position="labelPosition">
+            <font-awesome-icon :icon="faPencilAlt"
+             @click="openConfig(control)" class="clickable" />
         </component>
     </div>
 </template>
@@ -21,6 +19,7 @@
     //import ControlItem from "./ControlItem";
     import {eventBus, EventHandlerConstant} from '@/template/handler/event_handler';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
     import {Hooks} from '@/template/components/hook_lists';
     import {ControlHandler} from '@/template/handler/control_handler';
 
@@ -35,7 +34,7 @@
             labelPosition: null
         },
         data: () => ({
-            CONTROL_TYPES,
+            CONTROL_TYPES, faPencilAlt,
             editing_control: null,
         }),
         methods: {
@@ -83,9 +82,6 @@
 
                 // reset the current sections
                 this.row.controls = finalItems;
-            },
-            removeRow(rowName) {
-                this.$emit('removeRow', rowName);
             },
 
             // control
@@ -190,9 +186,7 @@
 
 <style scoped>
     .rowItem {
-        border-radius: 10px;
-        background-color:rgba(0,0,0,.03);
-        padding: 30px 10px;
+        padding: 30px 30px;
         margin: 0;
         position: relative;
     }
@@ -208,4 +202,8 @@
     }
 
     .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+
+    .controlItemWrapper {
+      margin: 5px 0;
+    }
 </style>

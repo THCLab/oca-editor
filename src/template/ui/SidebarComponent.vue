@@ -6,6 +6,7 @@
             </a>
             <div id="sidebarControls">
                 <a href="javascript:void(0)" class="list-group-item list-group-item-action control-wrapper"
+                   :key="value"
                    v-for="(obj, value) in controls" :data-control-type="value">
                     <font-awesome-icon :icon="obj.icon"></font-awesome-icon> {{obj.label}}
                 </a>
@@ -18,7 +19,6 @@
                         <h4>{{controlInfo.label}}</h4>
                     </div>
                     <div class="col-md-6 text-right">
-                        <button class="btn btn-default" @click="applyEditSidebar">Apply</button>
                         <button class="btn btn-default" @click="closeEditSidebar">Close</button>
                     </div>
                 </div>
@@ -54,6 +54,14 @@
             controlInfo: null,
             configComponent: null,
         }),
+        watch: {
+          controlInfo: {
+            handler() {
+              this.applyEditSidebar();
+            },
+            deep: true
+          }
+        },
         methods: {
             closeEditSidebar() {
                 this.isConfig = false;
@@ -66,7 +74,9 @@
                 }
 
                 // pre apply
-                this.controlInfo.decimalPlace = parseInt(this.controlInfo.decimalPlace);
+                if (this.controlInfo.decimalPlace) {
+                    this.controlInfo.decimalPlace = parseInt(this.controlInfo.decimalPlace);
+                }
 
                 // before hook here
                 let b4Run = Hooks.Sidebar.beforeApplyConfig.runSequence(this.controlInfo);

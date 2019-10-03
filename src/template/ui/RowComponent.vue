@@ -1,9 +1,6 @@
 <template>
     <div class="rowWrapper">
-        <row-item v-for="row in section.rows"
-                  :key="row.name"
-                  :row="row"
-                  @removeRow="removeRow"
+        <row-item :row="section.row"
                   :label-position="section.labelPosition">
         </row-item>
     </div>
@@ -32,30 +29,12 @@
                 // sort
                 _.each(items, (item, index) => {
                     var id = $(item).attr('id');
-                    var rowItem = _.find(self.section.rows, {name: id});
+                    var rowItem = _.find(self.section.row, {name: id});
                     finalItems.push(rowItem);
                 });
 
                 // reset the current sections
-                this.section.rows = finalItems;
-            },
-            removeRow(rowName) {
-                var rowIndex = _.findIndex(this.section.rows, {name: rowName});
-                if (this.section.rows[rowIndex].controls.length > 0) {
-                    SethPhatToaster.error("Can't remove this row because it's still have controls inside.");
-                    return;
-                }
-
-                var rowInfo = this.section.rows[rowIndex];
-                let beforeRun = Hooks.Row.beforeRemove.runSequence(rowInfo, this.section);
-                if (beforeRun === false) {
-                    return;
-                }
-
-                this.section.rows.splice(rowIndex, 1);
-
-                // final hook
-                Hooks.Row.afterRemove.run(rowInfo, this.section);
+                this.section.row = finalItems;
             }
         },
         mounted() {
