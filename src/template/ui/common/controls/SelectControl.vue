@@ -6,12 +6,13 @@
                     {{control.label}}
                 </label>
             </div>
-            <div class="col-md-8 input-group">
+            <div class="col-md-7 input-group">
                 <select class="form-control" v-if="control.type == 'select'" :name="control.fieldName">
                     <option disabled selected>Options</option>
                     <option v-for="option in control.dataOptions">{{option.text}}</option>
                 </select>
             </div>
+            <div class="col-md-1"><slot /></div>
         </div>
         <div class="controlItem row" :id="control.name" v-else>
             <div class="form-group col-md-12">

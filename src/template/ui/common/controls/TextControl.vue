@@ -6,12 +6,13 @@
                     {{control.label}}
                 </label>
             </div>
-            <div class="col-md-8 input-group">
+            <div class="col-md-7 input-group">
                 <input type="text" class="form-control"
                        :readonly="control.readonly"
                        :name="control.fieldName"
                        :value="demo_value">
             </div>
+            <div class="col-md-1"><slot /></div>
         </div>
         <div class="controlItem row" :id="control.name" v-else>
             <div class="form-group col-md-12">

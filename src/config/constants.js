@@ -35,7 +35,7 @@ FORM_CONSTANTS.Control = {
     order: 0,
     defaultValue: "",
     value: "",
-    className: 'col-md-4',
+    className: 'col-md-12',
     readonly: false,
 
     // label style

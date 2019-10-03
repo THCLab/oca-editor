@@ -6,11 +6,12 @@
                     {{control.label}}
                 </label>
             </div>
-            <div class="col-md-8 input-group">
+            <div class="col-md-7 input-group">
                 <div class="text-center w-100">
                     <input type="checkbox" :name="control.fieldName" :checked="control.isChecked">
                 </div>
             </div>
+            <div class="col-md-1"><slot /></div>
         </div>
         <div class="controlItem row" :id="control.name" v-else>
             <div class="form-group col-md-12">

@@ -5,9 +5,10 @@
                    :is="CONTROL_TYPES[control.type].source.template"
                    :key="control.name"
                    :control="control"
-                   @dblclick.native="openConfig(control)"
                    :ref="control.name"
                    :label-position="labelPosition">
+            <font-awesome-icon :icon="faPencilAlt"
+             @click="openConfig(control)" class="clickable" />
         </component>
     </div>
 </template>
@@ -18,6 +19,7 @@
     //import ControlItem from "./ControlItem";
     import {eventBus, EventHandlerConstant} from '@/template/handler/event_handler';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
     import {Hooks} from '@/template/components/hook_lists';
     import {ControlHandler} from '@/template/handler/control_handler';
 
@@ -32,7 +34,7 @@
             labelPosition: null
         },
         data: () => ({
-            CONTROL_TYPES,
+            CONTROL_TYPES, faPencilAlt,
             editing_control: null,
         }),
         methods: {
@@ -200,4 +202,8 @@
     }
 
     .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+
+    .controlItemWrapper {
+      margin: 5px 0;
+    }
 </style>
