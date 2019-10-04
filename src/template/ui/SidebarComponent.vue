@@ -19,7 +19,8 @@
                         <h4>{{controlInfo.label}}</h4>
                     </div>
                     <div class="col-md-6 text-right">
-                        <button class="btn btn-default" @click="closeEditSidebar">Close</button>
+                        <font-awesome-icon :icon="faTimes"
+                          @click="closeEditSidebar" class="clickable fa-2x" />
                     </div>
                 </div>
 
@@ -41,6 +42,7 @@
     import {eventBus, EventHandlerConstant} from '@/template/handler/event_handler';
     import {ControlHandler} from '@/template/handler/control_handler';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+    import { faTimes } from '@fortawesome/free-solid-svg-icons'
     import {Hooks} from '@/template/components/hook_lists';
     import BaseConfigComponent from "./sidebar_items/BaseConfigComponent";
     import BaseStyleComponent from "./sidebar_items/BaseStyleComponent";
@@ -50,6 +52,7 @@
         name: "sidebar-component",
         data: () => ({
             controls: CONTROL_TYPES,
+            faTimes,
             isConfig: false,
             controlInfo: null,
             configComponent: null,
@@ -111,6 +114,13 @@
 
                 // after hook here
                 Hooks.Sidebar.afterOpenConfig.run(this.controlInfo);
+            });
+
+            eventBus.$on(EventHandlerConstant.REMOVE_CONTROL, controlInfo => {
+                if (this.controlInfo.name == controlInfo.name) {
+                    this.isConfig = false;
+                    this.controlInfo = null;
+                }
             });
         },
         mounted() {
