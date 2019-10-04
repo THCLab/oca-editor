@@ -127,17 +127,6 @@
                     $(ui.helper).css('width', `${ $(event.target).width() }px`);
                 }
             });
-
-            $(this.$el).find('.controlSidebar').droppable({
-                accept: ".controlItemWrapper",
-                drop: function (event, ui){
-                    // remove control
-                    eventBus.$emit(EventHandlerConstant.REMOVE_CONTROL, ui);
-                },
-                over: function( event, ui ) {
-                    ui.helper.css('border', '1px solid red');
-                },
-            });
         }
     }
 </script>
