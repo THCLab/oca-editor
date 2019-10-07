@@ -194,7 +194,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .rowItem {
         padding: 30px 30px;
         margin: 0;
@@ -212,7 +212,11 @@
     }
 
     .controlItemWrapper {
-      margin: 5px 0;
+        margin: 5px 0;
+
+        &:hover {
+            cursor: grab;
+        }
     }
 
     .options {

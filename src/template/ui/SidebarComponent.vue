@@ -141,6 +141,14 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    .ui-draggable {
+        &:hover {
+            cursor: grab;
+        }
 
+        &-dragging:hover {
+            cursor: move;
+        }
+    }
 </style>
