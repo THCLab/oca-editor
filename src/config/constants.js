@@ -38,16 +38,8 @@ FORM_CONSTANTS.Control = {
     className: 'col-md-12',
     readonly: false,
 
-    // label style
-    labelBold: false,
-    labelItalic: false,
-    labelUnderline: false,
-
     // validation
     required: false,
-
-    // attr for text
-    isMultiLine: false,
 
     // attr for number
     isInteger: false,

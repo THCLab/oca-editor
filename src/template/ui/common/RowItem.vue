@@ -7,8 +7,12 @@
                    :control="control"
                    :ref="control.name"
                    :label-position="labelPosition">
-            <font-awesome-icon :icon="faPencilAlt"
-             @click="openConfig(control)" class="clickable" />
+            <div class="options">
+                <font-awesome-icon :icon="faPencilAlt"
+                @click="openConfig(control)" class="clickable" />
+                <font-awesome-icon :icon="faTimes"
+                @click="removeControl(control)" class="clickable" />
+            </div>
         </component>
     </div>
 </template>
@@ -19,7 +23,7 @@
     //import ControlItem from "./ControlItem";
     import {eventBus, EventHandlerConstant} from '@/template/handler/event_handler';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-    import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
+    import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
     import {Hooks} from '@/template/components/hook_lists';
     import {ControlHandler} from '@/template/handler/control_handler';
 
@@ -34,7 +38,8 @@
             labelPosition: null
         },
         data: () => ({
-            CONTROL_TYPES, faPencilAlt,
+            CONTROL_TYPES,
+            faPencilAlt, faTimes,
             editing_control: null,
         }),
         methods: {
@@ -65,6 +70,10 @@
                 // after hook
                 Hooks.Control.afterAdd.run(controlInfo, this.row);
             },
+            removeControl(controlInfo) {
+              eventBus.$emit(EventHandlerConstant.REMOVE_CONTROL, controlInfo)
+            },
+
             traverseControl() {
                 let self = this;
 
@@ -96,17 +105,15 @@
             let self = this;
 
             // remove control bus
-            eventBus.$on(EventHandlerConstant.REMOVE_CONTROL, ui => {
+            eventBus.$on(EventHandlerConstant.REMOVE_CONTROL, controlInfo => {
                 // prepare data
-                var id = ui.helper.attr('data-control-name');
-                var controlIndex = _.findIndex(this.row.controls, {name: id});
+                var controlIndex = _.findIndex(this.row.controls, {name: controlInfo.name});
 
                 if (controlIndex < 0) {
                     return;
                 }
 
                 // before hook
-                var controlInfo = this.row.controls[controlIndex];
                 let beforeRun = Hooks.Control.beforeRemove.runSequence(controlInfo);
                 if (beforeRun === false) {
                     return;
@@ -174,17 +181,20 @@
                     self.traverseControl();
                 },
                 start: function(e, ui){
-                    ui.placeholder.height(ui.item.height());
+                    ui.placeholder.height(
+                      ui.item.height() +
+                        parseInt(ui.item.css('margin-top')) +
+                        parseInt(ui.item.css('margin-bottom'))
+                    );
                     ui.placeholder.width(ui.item.width());
-                    ui.placeholder.css("border", "");
-                    ui.placeholder.css("background-color", "#e74c3c");
+                    ui.placeholder.css("opacity", "0");
                 }
             }).disableSelection();
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .rowItem {
         padding: 30px 30px;
         margin: 0;
@@ -201,9 +211,16 @@
         cursor: pointer;
     }
 
-    .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
-
     .controlItemWrapper {
-      margin: 5px 0;
+        margin: 5px 0;
+
+        &:hover {
+            cursor: grab;
+        }
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
     }
 </style>
