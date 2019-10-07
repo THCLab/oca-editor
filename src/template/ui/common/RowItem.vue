@@ -181,10 +181,13 @@
                     self.traverseControl();
                 },
                 start: function(e, ui){
-                    ui.placeholder.height(ui.item.height());
+                    ui.placeholder.height(
+                      ui.item.height() +
+                        parseInt(ui.item.css('margin-top')) +
+                        parseInt(ui.item.css('margin-bottom'))
+                    );
                     ui.placeholder.width(ui.item.width());
-                    ui.placeholder.css("border", "");
-                    ui.placeholder.css("background-color", "#e74c3c");
+                    ui.placeholder.css("opacity", "0");
                 }
             }).disableSelection();
         }
@@ -207,8 +210,6 @@
     .clickable {
         cursor: pointer;
     }
-
-    .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
 
     .controlItemWrapper {
       margin: 5px 0;

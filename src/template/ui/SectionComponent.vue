@@ -59,23 +59,6 @@
             preview() {
                 this.$parent.preview();
             }
-        },
-        mounted() {
-            let self = this;
-
-            $("#sectionWrapper").sortable({
-                cursor: "move",
-                delay: 200,
-                placeholder: "ui-state-highlight",
-                update: function (event, ui) {
-                    self.traverseSection();
-                },
-                start: function(e, ui){
-                    ui.placeholder.height(ui.item.height());
-                    ui.placeholder.css("border", "");
-                    ui.placeholder.css("background-color", "#3498db");
-                }
-            }).disableSelection();
         }
     }
 </script>
