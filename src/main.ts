@@ -6,7 +6,6 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlus, faTimes, faLock, faUnlock, faEdit, faTrash, faLanguage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome'
 import router from "@/router"
-import store from '@/store'
 
 library.add(faPlus, faTimes, faLock, faUnlock, faEdit, faTrash, faLanguage)
 
@@ -21,6 +20,6 @@ Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
 new Vue({
-  router, store,
+  router,
   render: h => h(App),
 }).$mount('#app')
