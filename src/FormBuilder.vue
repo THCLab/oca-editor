@@ -114,6 +114,7 @@
         },
         created() {
             let self = this;
+            this.form.section.row.controls = [];
             this.debounceGetFormGUIValue = _.debounce(() => {
                 if (typeof self === "undefined" || typeof self.getValue === "undefined") {
                     return;
