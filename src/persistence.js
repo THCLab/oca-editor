@@ -25,3 +25,12 @@ export function save_schema(schemaData) {
 export function get_schemas() {
   return JSON.parse(localStorage.getItem('schemas')) || [];
 }
+
+export function delete_schema(schemaName) {
+  let schemas = JSON.parse(localStorage.getItem('schemas'));
+  schemas = schemas.filter((el) => {
+    return el.name != schemaName;
+  });
+  localStorage.setItem('schemas', JSON.stringify(schemas));
+  localStorage.removeItem(schemaName);
+}
