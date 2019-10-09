@@ -29,6 +29,7 @@
             </div>
             <div class="col-md-10">
                 <vue-bootstrap-typeahead
+                  ref="inputAttributeName"
                   @hit="control.isPII = true"
                   v-model="control.attrName"
                   :data="default_bit"
@@ -119,8 +120,17 @@
             ]
           }
         },
+        methods: {
+          setAttributeNameValue() {
+            this.$refs.inputAttributeName.inputValue = this.control.attrName;
+          }
+        },
         mounted() {
             $('[data-toggle="tooltip"]').tooltip(); // trigger tooltip
+            this.setAttributeNameValue();
+        },
+        updated() {
+            this.setAttributeNameValue();
         },
         computed: {
             typeFirstUpper() {
