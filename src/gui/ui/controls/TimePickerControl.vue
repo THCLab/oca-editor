@@ -1,10 +1,8 @@
 <template>
     <div>
         <div class="row" v-if="labelPosition === 'left'">
-            <div class="col-md-4">
-                <label> {{control.label}} </label>
-                <span v-show="control.required"> *</span>
-            </div>
+            <slot name="label"/>
+
             <div class="col-md-8">
                 <div class="input-group">
                     <ControlTimePicker v-model="control.value" :readonly="control.readonly" :options="options" />
@@ -16,6 +14,8 @@
                     </div>
                 </div>
             </div>
+
+            <slot name="information"/>
         </div>
         <div v-else class="form-group">
             <label> {{control.label}} </label>
@@ -59,11 +59,6 @@
             if (!_.isEmpty(this.control.defaultValue)) {
                 this.control.value = this.control.defaultValue;
             }
-
-            if (this.control.isNowTimeValue) {
-                this.control.value = moment().format(CONTROL_CONSTANTS.TimeFormat[this.control.timeFormat]);
-            }
-
         },
         mounted() {
             Hooks.Control.afterInit.run(this.control);

@@ -37,6 +37,10 @@ FORM_CONSTANTS.Control = {
     value: "",
     className: 'col-md-12',
     readonly: false,
+    information: "",
+    isPII: false,
+    attrName: "",
+    encoding: "utf-8",
 
     // validation
     required: false,
@@ -46,11 +50,9 @@ FORM_CONSTANTS.Control = {
     decimalPlace: 0,
 
     // attr for datePicker
-    isTodayValue: false,
     dateFormat: "dd/mm/yy",
 
     // attr for timePicker
-    isNowTimeValue: false,
     timeFormat: "HH:mm", // enhancement later
 
     // attr for select
@@ -93,6 +95,12 @@ FORM_CONSTANTS.Type = {
 FORM_CONSTANTS.OptionDefault = {
     id: "",
     text: ""
+};
+
+CONTROL_CONSTANTS.Encoding = {
+    'utf-8': "UTF-8",
+    'iso-8859–1': "ISO-8859–1",
+    'windows-1251': "Windows-1251"
 };
 
 CONTROL_CONSTANTS.DateFormat = {

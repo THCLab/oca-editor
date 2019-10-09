@@ -1,10 +1,8 @@
 <template>
     <div>
         <div class="row datePickerControl" v-if="labelPosition === 'left'">
-            <div class="col-md-4">
-                <label> {{control.label}} </label>
-                <span v-show="control.required"> *</span>
-            </div>
+            <slot name="label"/>
+
             <div class="col-md-8">
                 <div class="input-group">
                     <ControlDatePicker v-model="control.value" :readonly="this.control.readonly" :options="options" />
@@ -16,6 +14,8 @@
                     </div>
                 </div>
             </div>
+
+            <slot name="information"/>
         </div>
         <div class="form-group" v-else>
             <label> {{control.label}} </label>
@@ -66,11 +66,6 @@
             if (!_.isEmpty(this.control.defaultValue)) {
                 this.control.value = this.control.defaultValue;
                 return;
-            }
-
-            // today value or not
-            if (this.control.isTodayValue) {
-                this.control.value = (moment().format(CONTROL_CONSTANTS.DateFormat[this.control.dateFormat]));
             }
         },
         mounted() {

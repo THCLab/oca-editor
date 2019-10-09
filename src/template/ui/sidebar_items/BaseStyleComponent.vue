@@ -17,6 +17,15 @@
                 </div>
             </div>
         </div>
+
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>Information</label>
+                    <textarea row="2" class="form-control" v-model="control.information"></textarea>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 

@@ -1,12 +1,6 @@
 <template>
     <div class="row mt-2">
         <div class="col-md-12">
-            <label>
-                <input type="checkbox" name="isNowTimeValue" v-model="control.isNowTimeValue"> Auto-input Current Time?
-            </label>
-        </div>
-
-        <div class="col-md-12">
             <div class="form-group">
                 <label>Time Format</label>
                 <select2-control :options="timeFormatOptions" v-model="control.timeFormat"></select2-control>
