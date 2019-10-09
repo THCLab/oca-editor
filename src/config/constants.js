@@ -50,11 +50,9 @@ FORM_CONSTANTS.Control = {
     decimalPlace: 0,
 
     // attr for datePicker
-    isTodayValue: false,
     dateFormat: "dd/mm/yy",
 
     // attr for timePicker
-    isNowTimeValue: false,
     timeFormat: "HH:mm", // enhancement later
 
     // attr for select

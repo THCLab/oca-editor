@@ -67,11 +67,6 @@
                 this.control.value = this.control.defaultValue;
                 return;
             }
-
-            // today value or not
-            if (this.control.isTodayValue) {
-                this.control.value = (moment().format(CONTROL_CONSTANTS.DateFormat[this.control.dateFormat]));
-            }
         },
         mounted() {
             Hooks.Control.afterInit.run(this.control);

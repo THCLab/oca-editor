@@ -59,11 +59,6 @@
             if (!_.isEmpty(this.control.defaultValue)) {
                 this.control.value = this.control.defaultValue;
             }
-
-            if (this.control.isNowTimeValue) {
-                this.control.value = moment().format(CONTROL_CONSTANTS.TimeFormat[this.control.timeFormat]);
-            }
-
         },
         mounted() {
             Hooks.Control.afterInit.run(this.control);

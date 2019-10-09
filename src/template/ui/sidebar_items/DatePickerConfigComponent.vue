@@ -1,12 +1,6 @@
 <template>
     <div class="row mt-2">
         <div class="col-md-12">
-            <label>
-                <input type="checkbox" name="isTodayValue" v-model="control.isTodayValue"> Auto-input Current Day?
-            </label>
-        </div>
-
-        <div class="col-md-12">
             <div class="form-group">
                 <label>Date Format</label>
                 <select2-control :options="dateFormatOptions" v-model="control.dateFormat"></select2-control>
