@@ -1,10 +1,8 @@
 <template>
     <div>
         <div class="row" v-if="labelPosition === 'left'">
-            <div class="col-md-4">
-                <label> {{control.label}} </label>
-                <span v-show="control.required"> *</span>
-            </div>
+            <slot name="label"/>
+
             <div class="col-md-8">
                 <div class="input-group">
                     <input type="number"
@@ -16,6 +14,8 @@
                            v-model="control.value" />
                 </div>
             </div>
+
+            <slot name="information"/>
         </div>
         <div class="form-group" v-else>
             <label> {{control.label}} </label>

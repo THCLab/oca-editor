@@ -1,6 +1,20 @@
 <template>
     <div class="controlItem form-group" :class="control.className">
-        <component :is="controlInstance" :control="control" :label-position="labelPosition"></component>
+        <component :is="controlInstance" :control="control" :label-position="labelPosition">
+            <template v-slot:label>
+                <div class="col-md-4">
+                    <label> {{ control.label }} </label>
+                    <span v-show="control.required">*</span>
+                </div>
+            </template>
+
+            <template v-slot:information>
+                <div class="col-md-1" />
+                <div class="col-md-11 information">
+                  {{ control.information }}
+                </div>
+            </template>
+        </component>
     </div>
 </template>
 
@@ -32,5 +46,9 @@
 </script>
 
 <style scoped>
-
+    .information {
+      text-align: justify;
+      font-style: italic;
+      color: #6a6a6a;
+    }
 </style>

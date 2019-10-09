@@ -1,18 +1,40 @@
 <template>
     <div class="col-md-12 mb-2 rowItem row" :id="row.name">
 
-        <component v-for="(control, index) in row.controls"
+        <component v-for="(control) in row.controls"
                    :is="CONTROL_TYPES[control.type].source.template"
                    :key="control.name"
                    :control="control"
                    :ref="control.name"
+                   input-class="col-md-7"
                    :label-position="labelPosition">
-            <div class="options">
-                <font-awesome-icon :icon="faPencilAlt"
-                @click="openConfig(control)" class="clickable" />
-                <font-awesome-icon :icon="faTimes"
-                @click="removeControl(control)" class="clickable" />
-            </div>
+            <template v-slot:label>
+                <div class="col-md-4">
+                    <label> {{ control.label }} </label>
+                    <span v-show="control.required">*</span>
+                    <span v-show="control.attrName"> [
+                      <span v-show="control.isPII">PII: </span>
+                      {{ control.attrName }}
+                    ]</span>
+                </div>
+            </template>
+
+            <template v-slot:options>
+                <div class="col-md-1 options">
+                    <font-awesome-icon :icon="faPencilAlt"
+                    @click="openConfig(control)" class="clickable" />
+                    <font-awesome-icon :icon="faTimes"
+                    @click="removeControl(control)" class="clickable" />
+                </div>
+            </template>
+
+            <template v-slot:information>
+                <div class="col-md-1" />
+                <div class="col-md-10 information">
+                  {{ control.information }}
+                </div>
+                <div class="col-md-1" />
+            </template>
         </component>
     </div>
 </template>
@@ -20,7 +42,6 @@
 <script>
     import {FORM_CONSTANTS} from "@/config/constants";
     import {CONTROL_TYPES} from "@/config/control_constant";
-    //import ControlItem from "./ControlItem";
     import {eventBus, EventHandlerConstant} from '@/template/handler/event_handler';
     import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
     import { faPencilAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -222,5 +243,11 @@
     .options {
       display: flex;
       justify-content: space-between;
+    }
+
+    .information {
+      text-align: justify;
+      font-style: italic;
+      color: #6a6a6a;
     }
 </style>
