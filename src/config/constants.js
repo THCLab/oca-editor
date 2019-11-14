@@ -105,6 +105,7 @@ CONTROL_CONSTANTS.Encoding = {
 
 CONTROL_CONSTANTS.DateFormat = {
     // rule: date picker format => moment format
+    'DD/MM/YYYY': "D/M/YYYY",
     'dd/mm/yy': "D/M/YYYY",
     'dd-mm-yy': "D-M-YYYY",
     'mm/dd/yy': "M/D/YYYY",

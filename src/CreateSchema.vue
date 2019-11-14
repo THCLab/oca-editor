@@ -6,6 +6,19 @@
       </b-col>
 
       <b-col sm="10" lg="81">
+          <b-form-file
+            v-model="file"
+            id="chooseFile"
+            accept=".zip"
+            :disabled="form.name.length != 0 || form.description.length != 0"
+          />
+      </b-col>
+
+      <b-col sm="10" lg="81">
+        <br>
+      </b-col>
+
+      <b-col sm="10" lg="81">
         <b-form @submit.prevent>
           <b-form-group
             id="nameGroup"
@@ -18,6 +31,7 @@
               required
               size="lg"
               placeholder="Enter name"
+              :disabled="Boolean(file)"
             />
           </b-form-group>
 
@@ -33,6 +47,7 @@
               size="lg"
               description="Provide meaningful description for your schama base"
               placeholder="Enter description"
+              :disabled="Boolean(file)"
             />
           </b-form-group>
 
@@ -41,7 +56,7 @@
               <b-button block @click="onCreateSchema" variant="primary">Create</b-button>
             </b-col>
             <b-col>
-              <b-button block type="reset" variant="danger">Reset</b-button>
+              <b-button block type="reset" @click="resetFileInput" variant="danger">Reset</b-button>
             </b-col>
           </b-row>
         </b-form>
@@ -51,12 +66,15 @@
 </template>
 
 <script>
-import { save_schema } from "./persistence"
+import { save_schema, save_form } from "./persistence"
+import { resolveZipFile } from './zip_resolver'
+import { renderForm } from './form_renderer'
 
 export default {
   name: "create-schema",
   data() {
     return {
+      file: null,
       form: {
         name: "",
         description: "",
@@ -67,13 +85,34 @@ export default {
   },
   methods: {
     onCreateSchema() {
-      // key 'schemas' store schema list, so it can't be overriden
-      if (this.form.name != 'schemas') {
-        const created = save_schema(this.form);
-        if (created) {
-          this.$router.push("schemas");
+      if (this.file) {
+        resolveZipFile(this.file).then(results => {
+          let created
+          results.forEach((schemaData) => {
+            created = false
+            const { schema, form } = renderForm(schemaData)
+            created = save_schema(schema);
+            if (created) {
+              save_form(schema.name, form)
+            }
+          })
+
+          if (created) {
+            this.$router.push("schemas");
+          }
+        })
+      } else {
+        // key 'schemas' store schema list, so it can't be overriden
+        if (this.form.name != 'schemas') {
+          const created = save_schema(this.form);
+          if (created) {
+            this.$router.push("schemas");
+          }
         }
       }
+    },
+    resetFileInput() {
+      this.file = null
     }
   }
 };
