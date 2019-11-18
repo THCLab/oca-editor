@@ -28,6 +28,7 @@ FORM_CONSTANTS.Section = {
 };
 
 FORM_CONSTANTS.Control = {
+    uuid: "",
     type: "",
     name: "",
     fieldName: "",
