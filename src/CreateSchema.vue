@@ -69,6 +69,7 @@
 import { save_schema, save_form } from "./persistence"
 import { resolveZipFile } from './zip_resolver'
 import { renderForm } from './form_renderer'
+import { eventBus } from '@/template/handler/event_handler'
 
 export default {
   name: "create-schema",
@@ -87,19 +88,8 @@ export default {
     onCreateSchema() {
       if (this.file) {
         resolveZipFile(this.file).then(results => {
-          let created
-          results.forEach((schemaData) => {
-            created = false
-            const { schema, form } = renderForm(schemaData)
-            created = save_schema(schema);
-            if (created) {
-              save_form(schema.name, form)
-            }
-          })
-
-          if (created) {
-            this.$router.push("schemas");
-          }
+          results.forEach(schemaData => renderForm(schemaData))
+          this.$router.push("schemas");
         })
       } else {
         // key 'schemas' store schema list, so it can't be overriden
@@ -114,6 +104,12 @@ export default {
     resetFileInput() {
       this.file = null
     }
+  },
+  created() {
+    eventBus.$on('msg.form_rendered', ({ schema, form }) => {
+      save_schema(schema);
+      save_form(schema.name, form)
+    })
   }
 };
 </script>

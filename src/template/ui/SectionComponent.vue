@@ -13,7 +13,7 @@
             <div class="col-xs-12 mt-2 sectionItem">
                 <div class="card">
                     <div class="card-body sectionBody">
-                        <row-component :section="form.section"></row-component>
+                        <row-component :formUuid="form.uuid" :section="form.section"></row-component>
                     </div>
                 </div>
 

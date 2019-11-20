@@ -2,10 +2,10 @@
     <div>
         <div class="row">
             <div class="col-md-6">
-                <label>Control type</label>
+                <label>Attribute type</label>
             </div>
             <div class="col-md-6">
-                <input type="text" readonly class="form-control" :value="typeFirstUpper">
+                <input type="text" readonly class="form-control" :value="attributeType">
             </div>
         </div>
 
@@ -50,6 +50,7 @@
 
 <script>
     import VueBootstrapTypeahead from "vue-bootstrap-typeahead";
+    import { TYPE_MAPPER } from '@/config/constants'
 
     export default {
         name: "BaseConfigComponent",
@@ -133,8 +134,8 @@
             this.setAttributeNameValue();
         },
         computed: {
-            typeFirstUpper() {
-                return this.control.type.charAt(0).toUpperCase() + this.control.type.slice(1);
+            attributeType() {
+                return TYPE_MAPPER.inputType[this.control.type]
             }
         }
     }

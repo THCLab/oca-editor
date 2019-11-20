@@ -1,8 +1,8 @@
-import * as odcaPkg from 'odca'
-const odca = odcaPkg.com.thehumancolossuslab.odca
-import { FORM_CONSTANTS } from './config/constants'
+import { FORM_CONSTANTS, TYPE_MAPPER } from './config/constants'
+import Communicator from './communicator'
 
 export function renderForm(schemaData) {
+  Communicator.publish('store_schema', schemaData)
   const schema = {
     name: schemaData.schemaBase.name,
     description: schemaData.schemaBase.description,
@@ -10,23 +10,8 @@ export function renderForm(schemaData) {
     version: "1"
   }
   const form = {
-    section: {
-      name: "",
-      label: "",
-      clientKey: "",
-      order: 0,
-      row: {
-        name: "",
-        label: "",
-        order: 0,
-        controls: []
-      },
-      labelPosition: "left",
-      isDynamic: false,
-      minInstance: 1,
-      maxInstance: 0,
-      instances: []
-    },
+    uuid: schemaData.uuid,
+    section: _.cloneDeep(FORM_CONSTANTS.Section),
     type: ""
   }
 
@@ -37,11 +22,11 @@ export function renderForm(schemaData) {
     let attrUuid = element.key
     let attrName = element.value
 
-    const type = typeMapper[
+    const type = TYPE_MAPPER.typeInput[
       schemaData.schemaBase.attributesType.get_11rb$(attrUuid)
     ] || "text"
+    const controlName = _.domUniqueID(`control_${type}_`)
 
-    const fieldId = Math.floor(Math.random() * 10000000);
     let label, format
     const labelOverlays = schemaData.labelOverlays.array_hd7ov6$_0
     label = labelOverlays[0].attrLabels.get_11rb$(attrUuid)
@@ -55,26 +40,17 @@ export function renderForm(schemaData) {
       ...{
         uuid: attrUuid,
         type: type,
-        name: `control_${type}_${fieldId}`,
-        fieldName: `control_${type}_${fieldId}`,
+        name: controlName,
+        fieldName: controlName,
         attrName: attrName,
         isPII: pii_attributes.includes(attrUuid),
         label: label,
         dateFormat: format,
-        timeFormat: "HH:mm",
+        timeFormat: "HH:mm"
       }
     }
     form.section.row.controls.push(control)
   }
 
-  return { schema, form }
-}
-
-const typeMapper = {
-  "Text": "text",
-  "Date": "datepicker",
-  "Array[Text]": "select",
-  "Array[Object]": "select",
-  "Boolean": "checkbox",
-  "Number": "number"
+  Communicator.publish('form_rendered', { schema, form })
 }

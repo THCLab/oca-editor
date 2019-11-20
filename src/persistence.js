@@ -11,7 +11,7 @@ export function update_form(id, title, formData) {
 }
 
 export function save_schema(schemaData) {
-  const schemas = JSON.parse(localStorage.getItem('schemas')) || [];
+  const schemas = get_schemas()
   const schema = schemas.find( (el) => el.name == schemaData.name );
   if (!schema) {
     schemas.push(schemaData);
@@ -27,10 +27,8 @@ export function get_schemas() {
 }
 
 export function delete_schema(schemaName) {
-  let schemas = JSON.parse(localStorage.getItem('schemas'));
-  schemas = schemas.filter((el) => {
-    return el.name != schemaName;
-  });
+  let schemas = get_schemas()
+  schemas = schemas.filter(el => el.name != schemaName);
   localStorage.setItem('schemas', JSON.stringify(schemas));
   localStorage.removeItem(schemaName);
 }

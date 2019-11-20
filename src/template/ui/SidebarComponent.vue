@@ -54,8 +54,9 @@
             controls: CONTROL_TYPES,
             faTimes,
             isConfig: false,
+            formUuid: null,
             controlInfo: null,
-            configComponent: null,
+            configComponent: null
         }),
         watch: {
           controlInfo: {
@@ -68,11 +69,12 @@
         methods: {
             closeEditSidebar() {
                 this.isConfig = false;
+                this.formUuid = null;
                 this.controlInfo = null;
                 ControlHandler.clearSelect();
             },
             applyEditSidebar() {
-                if (this.controlInfo.name !== ControlHandler.getSelectedItem()) {
+                if (!this.controlInfo || this.controlInfo.name !== ControlHandler.getSelectedItem()) {
                     return;
                 }
 
@@ -87,7 +89,11 @@
                     return;
                 }
 
-                eventBus.$emit(EventHandlerConstant.ON_APPLY_EDITOR_SIDEBAR, this.controlInfo);
+                eventBus.$emit(
+                    EventHandlerConstant.ON_APPLY_EDITOR_SIDEBAR,
+                    { formUuid: this.formUuid,
+                      control: this.controlInfo }
+                );
 
                 // after hook here
                 Hooks.Sidebar.afterApplyConfig.run(this.controlInfo);
@@ -95,7 +101,7 @@
         },
         created() {
             // catch event activate sidebar here
-            eventBus.$on(EventHandlerConstant.ACTIVATE_EDITOR_SIDEBAR, controlInfo => {
+          eventBus.$on(EventHandlerConstant.ACTIVATE_EDITOR_SIDEBAR, ({ formUuid, controlInfo }) => {
                 // before hook here
                 let b4Run = Hooks.Sidebar.beforeOpenConfig.runSequence(controlInfo);
                 if (b4Run === false) {
@@ -104,6 +110,7 @@
 
                 // open config
                 this.isConfig = true;
+                this.formUuid = formUuid;
                 this.controlInfo = controlInfo;
                 this.configComponent = null;
 
@@ -116,11 +123,11 @@
                 Hooks.Sidebar.afterOpenConfig.run(this.controlInfo);
             });
 
-            eventBus.$on(EventHandlerConstant.REMOVE_CONTROL, controlInfo => {
-                if (this.controlInfo.name == controlInfo.name) {
-                    this.isConfig = false;
-                    this.controlInfo = null;
-                }
+            eventBus.$on(EventHandlerConstant.REMOVE_CONTROL, ({ controlInfo }) => {
+                  if (this.controlInfo && this.controlInfo.name == controlInfo.name) {
+                      this.isConfig = false;
+                      this.controlInfo = null;
+                  }
             });
         },
         mounted() {

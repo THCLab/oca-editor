@@ -2,6 +2,7 @@ import {faEdit, faCalculator, faCalendarAlt, faClock, faCheck, faDatabase} from 
 
 var FORM_CONSTANTS = {};
 var CONTROL_CONSTANTS = {};
+var TYPE_MAPPER = {};
 
 FORM_CONSTANTS.Row = {
     name: "",
@@ -51,7 +52,7 @@ FORM_CONSTANTS.Control = {
     decimalPlace: 0,
 
     // attr for datePicker
-    dateFormat: "dd/mm/yy",
+    dateFormat: null,
 
     // attr for timePicker
     timeFormat: "HH:mm", // enhancement later
@@ -122,7 +123,26 @@ CONTROL_CONSTANTS.TimeFormat = {
     'hh:mm p': "hh:mm A"
 };
 
+TYPE_MAPPER.typeInput = {
+  "Text": "text",
+  "Date": "datepicker",
+  "Array[Text]": "select",
+  "Array[Object]": "select",
+  "Boolean": "checkbox",
+  "Number": "number"
+}
+
+TYPE_MAPPER.inputType = {
+  "text": "Text",
+  "number": "Number",
+  "datepicker": "Date",
+  "timepicker": "Date",
+  "select": "Array[Text]",
+  "checkbox": "Boolean"
+}
+
 export {
     FORM_CONSTANTS,
-    CONTROL_CONSTANTS
+    CONTROL_CONSTANTS,
+    TYPE_MAPPER
 }

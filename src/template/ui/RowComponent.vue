@@ -1,6 +1,7 @@
 <template>
     <div class="rowWrapper">
         <row-item :row="section.row"
+                  :formUuid="formUuid"
                   :label-position="section.labelPosition">
         </row-item>
     </div>
@@ -14,6 +15,7 @@
         components: {RowItem},
         name: "row-component",
         props: {
+            formUuid: null,
             section: {
                 type: Object
             }
