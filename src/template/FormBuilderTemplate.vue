@@ -16,6 +16,7 @@
     import { dom } from '@fortawesome/fontawesome-svg-core'
     import SidebarComponent from "./ui/SidebarComponent";
     import PreviewComponent from "./ui/PreviewComponent";
+    import { eventBus } from '@/template/handler/event_handler'
     dom.watch();
 
     var default_form_value = () => ({
@@ -45,6 +46,9 @@
             },
             preview() {
                 this.$refs.PreviewComponent.openModal(this.form);
+            },
+            download() {
+                eventBus.$emit("export", this.form.uuid)
             }
         }
     }

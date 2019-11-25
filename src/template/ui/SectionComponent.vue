@@ -6,6 +6,10 @@
                     <font-awesome-icon icon="image"/>
                     Preview
                 </button>
+                <button class="btn btn-default" @click="download">
+                    <font-awesome-icon icon="file-download"/>
+                    Export
+                </button>
             </div>
         </div>
 
@@ -58,6 +62,9 @@
             },
             preview() {
                 this.$parent.preview();
+            },
+            download() {
+                this.$parent.download();
             }
         }
     }

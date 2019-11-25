@@ -1,4 +1,5 @@
 import JSZip from 'jszip'
+import { saveAs } from 'file-saver'
 import * as odcaPkg from 'odca'
 const odca = odcaPkg.com.thehumancolossuslab.odca
 import Kotlin from 'kotlin'
@@ -12,6 +13,34 @@ export const resolveZipFile = async (file) => {
   })
 
   return schemas
+}
+
+export const exportToZip = (schema) => {
+    const zip = new JSZip()
+    const schemaName = schema.schemaBase.name
+
+    zip.file(
+      `${schemaName}.json`,
+      JSON.stringify(schema.schemaBase, null, 2)
+    )
+    const { schemaBase, ...schemaOverlays } = schema
+
+    for(let overlays of Object.values(schemaOverlays)) {
+        for(let [key, value] of Object.entries(overlays)) {
+            zip.file(
+              `${schemaName}/${key}.json`,
+              JSON.stringify(value, null, 2)
+            )
+        }
+    }
+
+    zip.generateAsync({type:"blob"}).then((content) => {
+      const filename = Math.random().toString(16).substring(2) +
+        Math.random().toString(16).substring(2) +
+        Math.random().toString(16).substring(9)
+
+        saveAs(content, `${filename}.zip`);
+    });
 }
 
 const parseFile = async (file) => {

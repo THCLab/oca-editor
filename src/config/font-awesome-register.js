@@ -8,11 +8,12 @@ import {faCog} from '@fortawesome/free-solid-svg-icons/faCog'
 import {faPlusCircle} from '@fortawesome/free-solid-svg-icons/faPlusCircle'
 import {faTimesCircle} from '@fortawesome/free-solid-svg-icons/faTimesCircle'
 import {faInfoCircle} from '@fortawesome/free-solid-svg-icons/faInfoCircle'
+import {faFileDownload} from '@fortawesome/free-solid-svg-icons/faFileDownload'
 
 var FontAwesomeRegister = {};
 
 FontAwesomeRegister.register = function() {
-    library.add(faImage, faPlus, faTimes, faChevronUp,faChevronDown, faCog, faPlusCircle, faTimesCircle, faInfoCircle);
+    library.add(faImage, faPlus, faTimes, faChevronUp,faChevronDown, faCog, faPlusCircle, faTimesCircle, faInfoCircle, faFileDownload);
 };
 
 export {

@@ -3,6 +3,7 @@ const odca = odcaPkg.com.thehumancolossuslab.odca
 import Communicator from './communicator'
 import { EventHandlerConstant, eventBus } from './template/handler/event_handler'
 import { TYPE_MAPPER } from './config/constants'
+import { exportToZip } from './zip_resolver'
 
 const schemaStorage = []
 
@@ -11,6 +12,8 @@ const findSchema = (uuid) => {
 }
 
 export const initOdcaCommunication = () => {
+  const facade = new odca.Facade()
+
   Communicator.subscribe('form_rendered', ({ schema, form }) => {
     eventBus.$emit('msg.form_rendered', { schema, form })
   })
@@ -73,5 +76,10 @@ export const initOdcaCommunication = () => {
         throw e
       }
     }
+  })
+
+  eventBus.$on("export", (schemaUuid) => {
+    const schema = findSchema(schemaUuid)
+    exportToZip(JSON.parse(facade.serialize(schema)))
   })
 }
