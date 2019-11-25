@@ -23,7 +23,7 @@ export function renderForm(schemaData) {
     let attrName = element.value
     let attrType = schemaData.schemaBase.attributesType.get_11rb$(attrUuid)
 
-    let label, format, options, encoding
+    let label, format, options, encoding, information
     const labelOverlays = schemaData.labelOverlays.array_hd7ov6$_0
     label = labelOverlays[0].attrLabels.get_11rb$(attrUuid)
 
@@ -51,6 +51,16 @@ export function renderForm(schemaData) {
     encoding = encodeOverlays[0].attrEncoding.get_11rb$(attrUuid)
     const defaultEncoding = encodeOverlays[0].defaultEncoding
 
+    const informationOverlays = schemaData.informationOverlays.array_hd7ov6$_0
+    if (informationOverlays.length != 0) {
+      for(let informationOverlay of informationOverlays) {
+        information = informationOverlay.attrInformation.get_11rb$(attrUuid)
+        if (information) {
+          break
+        }
+      }
+    }
+
     const type = TYPE_MAPPER.typeInput[attrType] || "text"
     const controlName = _.domUniqueID(`control_${type}_`)
 
@@ -66,7 +76,8 @@ export function renderForm(schemaData) {
         dateFormat: format || null,
         dataOptions: options || null,
         encoding: encoding || defaultEncoding,
-        timeFormat: "HH:mm",
+        information: information,
+        timeFormat: "HH:mm"
       }
     }
     form.section.row.controls.push(control)

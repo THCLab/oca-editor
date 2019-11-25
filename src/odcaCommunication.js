@@ -34,7 +34,8 @@ export const initOdcaCommunication = () => {
       args.controlInfo.label,
       args.controlInfo.dateFormat,
       entries,
-      args.controlInfo.encoding
+      args.controlInfo.encoding,
+      args.controlInfo.information
     )
 
     eventBus.$emit(args.controlInfo.name, attribute.uuid)
@@ -75,7 +76,8 @@ export const initOdcaCommunication = () => {
       args.control.label,
       args.control.dateFormat,
       entries,
-      args.control.encoding
+      args.control.encoding,
+      args.control.information
     )
 
     try {
