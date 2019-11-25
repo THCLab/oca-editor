@@ -5,7 +5,7 @@
 
             <div :class="inputClass" class="input-group">
                 <select class="form-control" v-if="control.type == 'select'" :name="control.fieldName">
-                    <option disabled selected>Options</option>
+                  <option disabled selected>Options ({{control.dataOptions.length}})</option>
                     <option v-for="option in control.dataOptions">{{option.text}}</option>
                 </select>
             </div>

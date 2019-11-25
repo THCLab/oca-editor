@@ -21,13 +21,9 @@ export function renderForm(schemaData) {
     let element = iterator.next()
     let attrUuid = element.key
     let attrName = element.value
+    let attrType = schemaData.schemaBase.attributesType.get_11rb$(attrUuid)
 
-    const type = TYPE_MAPPER.typeInput[
-      schemaData.schemaBase.attributesType.get_11rb$(attrUuid)
-    ] || "text"
-    const controlName = _.domUniqueID(`control_${type}_`)
-
-    let label, format
+    let label, format, options
     const labelOverlays = schemaData.labelOverlays.array_hd7ov6$_0
     label = labelOverlays[0].attrLabels.get_11rb$(attrUuid)
 
@@ -35,6 +31,24 @@ export function renderForm(schemaData) {
     if (formatOverlays.length != 0) {
       format = formatOverlays[0].attrFormats.get_11rb$(attrUuid)
     }
+
+    options = attrType.includes("Array") ? [] : null
+    const entryOverlays = schemaData.entryOverlays.array_hd7ov6$_0
+    if (entryOverlays.length != 0) {
+      for(let entryOverlay of entryOverlays) {
+        let entries = entryOverlay.attrEntries.get_11rb$(attrUuid)
+        if (entries) {
+          attrType = "Array[Text]"
+          options = entries.array_hd7ov6$_0.map(entry => {
+            return { id: "x", text: entry }
+          })
+          break
+        }
+      }
+    }
+
+    const type = TYPE_MAPPER.typeInput[attrType] || "text"
+    const controlName = _.domUniqueID(`control_${type}_`)
 
     const control = {...FORM_CONSTANTS.Control,
       ...{
@@ -44,8 +58,9 @@ export function renderForm(schemaData) {
         fieldName: controlName,
         attrName: attrName,
         isPII: pii_attributes.includes(attrUuid),
-        label: label,
-        dateFormat: format,
+        label: label || null,
+        dateFormat: format || null,
+        dataOptions: options || null,
         timeFormat: "HH:mm"
       }
     }

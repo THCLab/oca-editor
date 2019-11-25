@@ -23,12 +23,17 @@ export const initOdcaCommunication = () => {
 
   eventBus.$on('msg.add_control', (args) => {
     const schema = findSchema(args.schemaUuid)
+    const entries = (args.controlInfo.dataOptions &&
+      args.controlInfo.dataOptions.length >= 0) ?
+      args.controlInfo.dataOptions.map(o => o.text) : null
+
     const attribute = new odca.AttributeDto(
       args.controlInfo.attrName,
       TYPE_MAPPER.inputType[args.controlInfo.type],
       args.controlInfo.isPII,
       args.controlInfo.label,
-      args.controlInfo.dateFormat
+      args.controlInfo.dateFormat,
+      entries
     )
 
     eventBus.$emit(args.controlInfo.name, attribute.uuid)
@@ -58,13 +63,17 @@ export const initOdcaCommunication = () => {
 
   eventBus.$on(EventHandlerConstant.ON_APPLY_EDITOR_SIDEBAR, (args) => {
     const schema = findSchema(args.formUuid)
+    const entries = (args.control.dataOptions &&
+      args.control.dataOptions.length >= 0) ?
+      args.control.dataOptions.map(o => o.text) : null
 
     const attribute = new odca.AttributeDto(
       args.control.attrName,
       TYPE_MAPPER.inputType[args.control.type],
       args.control.isPII,
       args.control.label,
-      args.control.dateFormat
+      args.control.dateFormat,
+      entries
     )
 
     try {

@@ -39,10 +39,6 @@ var validate_static_datasource = function (controlInfo) {
     // check all list
     let hasError = false;
     _.each(controlInfo.dataOptions, (data, index) => {
-        if (_.isEmpty(data.id)) {
-            hasError = true;
-            $(`.settingSidebar .staticSource_${index} .txtId`).addClass(CONTROL_ERROR_CLASS);
-        }
         if (_.isEmpty(data.text)) {
             hasError = true;
             $(`.settingSidebar .staticSource_${index} .txtText`).addClass(CONTROL_ERROR_CLASS);
