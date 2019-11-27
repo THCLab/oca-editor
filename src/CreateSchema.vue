@@ -94,7 +94,7 @@
 import { save_schema, save_form } from "./persistence"
 import { resolveZipFile } from './zip_resolver'
 import { renderForm } from './form_renderer'
-import { eventBus } from '@/template/handler/event_handler'
+import { EventHandlerConstant, eventBus } from '@/template/handler/event_handler'
 
 export default {
   name: "create-schema",
@@ -129,7 +129,7 @@ export default {
     }
   },
   created() {
-    eventBus.$on('msg.form_rendered', ({ schema, form }) => {
+    eventBus.$on(EventHandlerConstant.FORM_RENDERED, ({ schema, form }) => {
       save_schema(schema);
       save_form(schema.name, form)
     })

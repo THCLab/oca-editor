@@ -94,7 +94,6 @@
                   controlInfo.uuid = uuid
                   eventBus.$off(controlInfo.name)
                 })
-                eventBus.$emit('msg.add_control', { schemaUuid: this.formUuid, controlInfo })
                 this.row.controls.push(controlInfo);
 
                 // after hook

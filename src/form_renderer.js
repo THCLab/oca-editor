@@ -6,6 +6,8 @@ export function renderForm(schemaData) {
   const schema = {
     name: schemaData.schemaBase.name,
     description: schemaData.schemaBase.description,
+    classification: schemaData.schemaBase.classification,
+    uuid: schemaData.uuid,
     did: "",
     version: "1"
   }
