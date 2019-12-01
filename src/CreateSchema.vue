@@ -91,10 +91,13 @@
 </template>
 
 <script>
+
 import { save_schema, save_form } from "./persistence"
 import { resolveZipFile } from './zip_resolver'
 import { renderForm } from './form_renderer'
 import { EventHandlerConstant, eventBus } from '@/template/handler/event_handler'
+import { FORM_CONSTANTS } from './config/constants'
+const uuid = require('uuid/v4')
 
 export default {
   name: "create-schema",
@@ -104,6 +107,8 @@ export default {
       form: {
         name: "",
         description: "",
+        classification: "",
+        uuid: uuid(),
         did: "",
         version: "1"
       }
@@ -114,6 +119,11 @@ export default {
       // key 'schemas' store schema list, so it can't be overriden
       if (this.form.name != 'schemas') {
         const created = save_schema(this.form);
+        save_form(this.form.name, {
+          uuid: this.form.uuid,
+          section: _.cloneDeep(FORM_CONSTANTS.Section),
+          type: ""
+        })
         if (created) {
           this.$router.push("schemas");
         }
