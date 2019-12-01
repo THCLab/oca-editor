@@ -21,7 +21,6 @@
                     <th class="text-center" width="10%">
                         <font-awesome-icon icon="plus" class="clickable" @click="addOption"></font-awesome-icon>
                     </th>
-                    <th width="40%">Value</th>
                     <th>Text</th>
                 </tr>
                 </thead>
@@ -29,9 +28,6 @@
                 <tr v-for="(option, index) in control.dataOptions" :class="'staticSource_' + index">
                     <td class="text-center">
                         <font-awesome-icon icon="times" class="clickable" @click="removeOption(index)"></font-awesome-icon>
-                    </td>
-                    <td>
-                        <input type="text" class="form-control txtId" v-model="option.id">
                     </td>
                     <td>
                         <input type="text" class="form-control txtText" v-model="option.text">

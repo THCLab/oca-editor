@@ -52,6 +52,7 @@
         components: {FontAwesomeIcon},
         name: "row-item",
         props: {
+            formUuid: null,
             row: {
                 type: Object,
                 default: {}
@@ -71,6 +72,9 @@
                 controlInfo.name = _.domUniqueID(`control_${controlType}_`);
                 controlInfo.label = FORM_CONSTANTS.Type[controlType].label;
                 controlInfo.fieldName = controlInfo.name; // same for both
+                if (controlType == "datepicker") {
+                  controlInfo.dateFormat = "dd/mm/yy"
+                }
 
                 // check if there's any more special fields?
                 if(CONTROL_TYPES[controlType].other_properties) {
@@ -86,13 +90,20 @@
                 }
 
                 // add to row
+                eventBus.$on(controlInfo.name, (uuid) => {
+                  controlInfo.uuid = uuid
+                  eventBus.$off(controlInfo.name)
+                })
                 this.row.controls.push(controlInfo);
 
                 // after hook
                 Hooks.Control.afterAdd.run(controlInfo, this.row);
             },
             removeControl(controlInfo) {
-              eventBus.$emit(EventHandlerConstant.REMOVE_CONTROL, controlInfo)
+              eventBus.$emit(
+                EventHandlerConstant.REMOVE_CONTROL,
+                { schemaUuid: this.formUuid, controlInfo }
+              )
             },
 
             traverseControl() {
@@ -119,14 +130,18 @@
                 ControlHandler.clearSelect();
                 ControlHandler.setSelect(controlInfo.name);
                 this.editing_control = controlInfo;
-                eventBus.$emit(EventHandlerConstant.ACTIVATE_EDITOR_SIDEBAR, _.cloneDeep(controlInfo));
+              eventBus.$emit(
+                EventHandlerConstant.ACTIVATE_EDITOR_SIDEBAR,
+                { formUuid: this.formUuid,
+                  controlInfo: _.cloneDeep(controlInfo) }
+              );
             }
         },
         created() {
             let self = this;
 
             // remove control bus
-            eventBus.$on(EventHandlerConstant.REMOVE_CONTROL, controlInfo => {
+          eventBus.$on(EventHandlerConstant.REMOVE_CONTROL, ({ controlInfo }) => {
                 // prepare data
                 var controlIndex = _.findIndex(this.row.controls, {name: controlInfo.name});
 
@@ -148,7 +163,7 @@
             });
 
             // update control bus
-            eventBus.$on(EventHandlerConstant.ON_APPLY_EDITOR_SIDEBAR, control => {
+          eventBus.$on(EventHandlerConstant.ON_APPLY_EDITOR_SIDEBAR, ({ control }) => {
                 //var oldControl = _.find(this.row.controls, {name: control.name});
                 let controlIndex = _.findIndex(self.row.controls, {name: control.name});
                 if (controlIndex <= -1 || self.row.controls[controlIndex].name !== self.editing_control.name) {

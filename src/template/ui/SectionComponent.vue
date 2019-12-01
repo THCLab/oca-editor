@@ -6,6 +6,10 @@
                     <font-awesome-icon icon="image"/>
                     Preview
                 </button>
+                <button class="btn btn-default" @click="download">
+                    <font-awesome-icon icon="file-download"/>
+                    Export
+                </button>
             </div>
         </div>
 
@@ -13,7 +17,7 @@
             <div class="col-xs-12 mt-2 sectionItem">
                 <div class="card">
                     <div class="card-body sectionBody">
-                        <row-component :section="form.section"></row-component>
+                        <row-component :formUuid="form.uuid" :section="form.section"></row-component>
                     </div>
                 </div>
 
@@ -58,6 +62,9 @@
             },
             preview() {
                 this.$parent.preview();
+            },
+            download() {
+                this.$parent.download();
             }
         }
     }

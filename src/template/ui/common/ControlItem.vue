@@ -98,7 +98,7 @@
         },
         created() {
             let self = this;
-            eventBus.$on(EventHandlerConstant.ON_APPLY_EDITOR_SIDEBAR, control => {
+          eventBus.$on(EventHandlerConstant.ON_APPLY_EDITOR_SIDEBAR, ({ control }) => {
                 var oldControl = _.find(this.$parent.row.controls, {name: control.name});
                 if (oldControl === undefined || oldControl.name !== this.control.name) {
                     return;
