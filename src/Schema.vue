@@ -1,56 +1,77 @@
 <template>
-  <b-container class>
-    <b-row align-h="center">
-      <b-col cols="12">
-        <b-table striped hover :fields="attr_fields" :items="schemas">
-
-          <template slot="actions" slot-scope="data">
-                  <b-button variant="link" :to="{ name: 'schemas', params: { id: data.item.name } }">
-                    <font-awesome-icon icon="edit"></font-awesome-icon>
-                  </b-button>
-                  <b-button
-                    variant="link"
-                    @click="deleteSchema(data.item.name)"
-                  >
-                    <font-awesome-icon icon="trash"></font-awesome-icon>
-                  </b-button>
-                </template>
-        </b-table>
-      </b-col>
-    </b-row>
-  </b-container>
+  <div>
+    <div class="main-layout">
+      <div class="schema-info">
+        <h1>{{name}}</h1>
+      </div>
+      <form-builder type="template" v-model="formData" :options="formBuilderOptions"></form-builder>
+    </div>
+    <div class="text-right mt-3" style="margin: 0px 20px;">
+      <button class="btn btn-default" @click="resetForm">Reset</button>
+      <button class="btn btn-primary" @click="saveForm">Save</button>
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import FormBuilder from './FormBuilder';
+import {get_form, update_form, save_form} from "./persistence";
 
 export default {
-  name: "app",
+  name: "schema",
+  components: {
+    FormBuilder
+  },
+  props: ["name"],
+  methods: {
+    resetForm() {
+      this.formData.section.row.controls = [];
+    },
+    loadOldForm() {
+      try {
+        this.formData = JSON.parse(get_form(this.name));
+      } catch(e) {
+        SethPhatToaster.error("Incorrect JSON model");
+      }
+    },
+    saveForm() {
+      if (this.name === "") {
+        SethPhatToaster.error("Please input your form config title");
+        return;
+      }
+      if (this.id !== "") {
+        update_form(this.id, this.name, this.formData);
+      } else {
+        save_form(this.name, this.formData);
+      }
+      SethPhatToaster.success("Saved");
+    }
+  },
+  created() {
+    this.loadOldForm();
+  },
+  beforeDestroy() {
+    this.formData = null;
+  },
   data() {
     return {
-      attr_fields: [
-        { key: "name", label: "Name" },
-        { key: "description", label: "Description" },
-        { key: "actions", label: "" }
-      ]
+      formData: null,
+      id: "",
+      formBuilderOptions: {
+        hooks: {
+          'Section.beforeAdd': function(sectionInfo) {
+            console.log(sectionInfo)
+          }
+        }
+      }
     };
-  },
-  components: {},
-  computed: {
-    ...mapGetters({
-      schemas: "getSchemas"
-    })
-  },
-  methods: {
-    showSchema() {
-      
-    },
-    deleteSchema() {
-
-    },
   }
 };
 </script>
 
-<style>
+<style scope>
+  .schema-info {
+    padding-left: 40px;
+    text-align: left;
+  }
 </style>

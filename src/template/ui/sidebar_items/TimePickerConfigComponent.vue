@@ -1,0 +1,37 @@
+<template>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Time Format</label>
+                <select2-control :options="timeFormatOptions" v-model="control.timeFormat"></select2-control>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import Select2Control from "@/third_party_controls/Select2Control";
+    import {CONTROL_CONSTANTS} from "@/config/constants";
+
+    export default {
+        name: "TimePickerConfigComponent",
+        components: {Select2Control},
+        props: {
+            control: {
+                type: Object
+            },
+        },
+        data: () => ({
+            timeFormatOptions: [],
+        }),
+        created() {
+            this.timeFormatOptions = _.map(CONTROL_CONSTANTS.TimeFormat, (value, key) => {
+                return key;
+            });
+        },
+    }
+</script>
+
+<style scoped>
+
+</style>

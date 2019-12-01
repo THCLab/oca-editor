@@ -1,8 +1,8 @@
 import Vue from "vue"
 import Router from "vue-router"
-import Schema from "./Schema.vue"
+import SchemaList from "./SchemaList.vue"
 import CreateSchema from "./CreateSchema.vue"
-import Overlays from "@/views/Overlays.vue"
+import Schema from "./Schema.vue"
 
 Vue.use(Router)
 
@@ -10,7 +10,7 @@ export default new Router({
     mode: 'history',
     routes: [
         { path: '/', component: CreateSchema },
-        { path: '/schemas', component: Schema },
-        { path: "/schemas/:id", name: "schemas", component: Overlays, props: true }
+        { path: '/schemas', component: SchemaList },
+        { path: "/schemas/:name", component: Schema, props: true }
     ]
 })
