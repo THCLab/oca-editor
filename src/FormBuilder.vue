@@ -46,7 +46,7 @@
             form: {
                 type: Object,
                 default:() => ({
-                    section: FORM_CONSTANTS.Section
+                    sections: [_.cloneDeep(FORM_CONSTANTS.Section)]
                 })
             },
             value: null,
@@ -114,7 +114,7 @@
         },
         created() {
             let self = this;
-            this.form.section.row.controls = [];
+            this.form.sections[0].row.controls = [];
             this.debounceGetFormGUIValue = _.debounce(() => {
                 if (typeof self === "undefined" || typeof self.getValue === "undefined") {
                     return;

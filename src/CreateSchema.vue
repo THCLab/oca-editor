@@ -121,7 +121,7 @@ export default {
         const created = save_schema(this.form);
         save_form(this.form.name, {
           uuid: this.form.uuid,
-          section: _.cloneDeep(FORM_CONSTANTS.Section),
+          sections: [_.cloneDeep(FORM_CONSTANTS.Section)],
           type: ""
         })
         if (created) {

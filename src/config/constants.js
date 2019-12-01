@@ -16,7 +16,7 @@ FORM_CONSTANTS.Section = {
     label: "",
     clientKey: "",
     order: 0,
-    row: FORM_CONSTANTS.Row,
+    row: { ...FORM_CONSTANTS.Row },
 
     // config
     labelPosition: "left", // left or top

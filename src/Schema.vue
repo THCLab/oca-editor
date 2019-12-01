@@ -25,7 +25,7 @@ export default {
   props: ["name"],
   methods: {
     resetForm() {
-      this.formData.section.row.controls = [];
+      this.formData.sections[0].row.controls = [];
     },
     loadOldForm() {
       try {
@@ -60,7 +60,7 @@ export default {
       formBuilderOptions: {
         hooks: {
           'Section.beforeAdd': function(sectionInfo) {
-            console.log(sectionInfo)
+            // console.log(sectionInfo)
           }
         }
       }

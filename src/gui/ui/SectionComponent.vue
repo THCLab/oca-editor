@@ -1,7 +1,7 @@
 <template>
     <div class="row" v-if="form !== null">
         <div class="col-md-12 sectionItem">
-            <section-layout :section="form.section" />
+            <section-layout :section="section" v-for="section in form.sections" :key="section" />
         </div>
     </div>
 </template>

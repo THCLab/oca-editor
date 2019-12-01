@@ -31,12 +31,12 @@
                 // sort
                 _.each(items, (item, index) => {
                     var id = $(item).attr('id');
-                    var rowItem = _.find(self.section.row, {name: id});
+                    var rowItem = _.find(self.sections[0].row, {name: id});
                     finalItems.push(rowItem);
                 });
 
                 // reset the current sections
-                this.section.row = finalItems;
+                this.sections[0].row = finalItems;
             }
         }
     }

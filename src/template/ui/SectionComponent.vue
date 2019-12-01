@@ -2,6 +2,10 @@
     <div>
         <div class="row">
             <div class="col-md-12 text-right">
+                <button class="btn btn-default" @click="addSection">
+                    <font-awesome-icon icon="plus"/>
+                    Add category
+                </button>
                 <button class="btn btn-default" @click="preview">
                     <font-awesome-icon icon="image"/>
                     Preview
@@ -13,11 +17,22 @@
             </div>
         </div>
 
+
         <div id="sectionWrapper">
-            <div class="col-xs-12 mt-2 sectionItem">
+          <div class="col-xs-12 mt-2 sectionItem" v-for="(section, i) in form.sections" :key="section.name" :id="section.name">
                 <div class="card">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="Category name" v-model="section.label">
+                      </div>
+                      <div class="col-md-4 text-right">
+                        <span class="fa-2x clickable" @click="removeSection(i)"><font-awesome-icon icon="times"/></span>
+                      </div>
+                    </div>
+                  </div>
                     <div class="card-body sectionBody">
-                        <row-component :formUuid="form.uuid" :section="form.section"></row-component>
+                        <row-component :formUuid="form.uuid" :section="section" ></row-component>
                     </div>
                 </div>
 
@@ -42,6 +57,38 @@
             }
         },
         methods: {
+            addSection() {
+                const sectionInfo = _.cloneDeep(FORM_CONSTANTS.Section)
+                sectionInfo.name = _.domUniqueID("section_")
+                sectionInfo.clientKey = sectionInfo.name
+
+                // b4hook
+                let b4Run = Hooks.Section.beforeAdd.runSequence(sectionInfo);
+                if (b4Run === false) {
+                    return;
+                }
+
+                this.form.sections.push(sectionInfo)
+
+                // after hook
+                Hooks.Section.afterAdd.run(sectionInfo)
+            },
+            removeSection(index) {
+                if (this.form.sections[index].row.controls.length > 0) {
+                    SethPhatToaster.error("Can't remove this category because it's still have attributes inside.");
+                    return;
+                }
+
+                var sectionInfo = this.form.sections[index];
+                let beforeRun = Hooks.Section.beforeRemove.runSequence(sectionInfo);
+                if (beforeRun === false) {
+                    return;
+                }
+
+                this.form.sections.splice(index, 1);
+
+                Hooks.Section.afterRemove.run(sectionInfo);
+            },
             traverseSection() {
                 let self = this;
 

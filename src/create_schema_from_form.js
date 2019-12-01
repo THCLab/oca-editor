@@ -19,7 +19,7 @@ export const createSchemaFromForm = (form) => {
     baseInfo.put_xwzc9p$("description", baseForm.description)
     baseInfo.put_xwzc9p$("classification", baseForm.classification)
 
-    const attrNames = form.section.row.controls.map(c => c.attrName)
+    const attrNames = form.sections.map(s => s.row.controls.map(c => c.attrName)).flat(1)
     const duplicates = attrNames.filter((attrName, index) => {
         return attrNames.indexOf(attrName) != index;
     })
@@ -29,27 +29,30 @@ export const createSchemaFromForm = (form) => {
         })
     }
 
-    form.section.row.controls.forEach(control => {
-        if (control.attrName.length <= 0) {
-          throw "Attibute name cannot be empty"
-        }
+    form.sections.forEach(section => {
+      let category = section.label
+      section.row.controls.forEach(control => {
+          if (control.attrName.length <= 0) {
+            throw "Attibute name cannot be empty"
+          }
 
-        const entry = (control.dataOptions &&
-          control.dataOptions.length > 0) ?
-          control.dataOptions.map(o => o.text) : null
+          const entry = (control.dataOptions &&
+            control.dataOptions.length > 0) ?
+            control.dataOptions.map(o => o.text) : null
 
-        attributes.push(
-          new odca.AttributeDto(
-            control.attrName,
-            TYPE_MAPPER.inputType[control.type],
-            control.isPII,
-            control.label,
-            control.dateFormat,
-            entry,
-            control.encoding,
-            control.information,
+          attributes.push(
+            new odca.AttributeDto(
+              control.attrName,
+              TYPE_MAPPER.inputType[control.type],
+              control.isPII,
+              `${category} | ${control.label}`,
+              control.dateFormat,
+              entry,
+              control.encoding,
+              control.information,
+            )
           )
-        )
+      })
     })
 
     return facade.renderSchema(baseInfo, attributes)

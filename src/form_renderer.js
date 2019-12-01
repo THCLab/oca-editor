@@ -13,20 +13,19 @@ export function renderForm(schemaData) {
   }
   const form = {
     uuid: schemaData.uuid,
-    section: _.cloneDeep(FORM_CONSTANTS.Section),
+    sections: [],
     type: ""
   }
 
+  const leftAttributes = schemaData.schemaBase.attributesUuid
   const pii_attributes = schemaData.schemaBase.piiAttributes.array_hd7ov6$_0
-  const iterator = schemaData.schemaBase.attributesUuid.entries.iterator()
-  while(iterator.hasNext()) {
-    let element = iterator.next()
-    let attrUuid = element.key
-    let attrName = element.value
+
+  const labelOverlays = schemaData.labelOverlays.array_hd7ov6$_0
+
+  const generateControl = (attrUuid, attrName) => {
     let attrType = schemaData.schemaBase.attributesType.get_11rb$(attrUuid)
 
     let label, format, options, encoding, information
-    const labelOverlays = schemaData.labelOverlays.array_hd7ov6$_0
     label = labelOverlays[0].attrLabels.get_11rb$(attrUuid)
 
     const formatOverlays = schemaData.formatOverlays.array_hd7ov6$_0
@@ -66,7 +65,7 @@ export function renderForm(schemaData) {
     const type = TYPE_MAPPER.typeInput[attrType] || "text"
     const controlName = _.domUniqueID(`control_${type}_`)
 
-    const control = {...FORM_CONSTANTS.Control,
+    return {...FORM_CONSTANTS.Control,
       ...{
         uuid: attrUuid,
         type: type,
@@ -82,7 +81,41 @@ export function renderForm(schemaData) {
         timeFormat: "HH:mm"
       }
     }
-    form.section.row.controls.push(control)
+  }
+
+  const labelOverlay = labelOverlays[0]
+  const categories = labelOverlay.attrCategories.array_hd7ov6$_0
+  categories.forEach(categoryLink => {
+    const section = _.cloneDeep(FORM_CONSTANTS.Section)
+    section.name = _.domUniqueID("section_")
+    section.clientKey = section.name
+
+    const categoryLabel = labelOverlay.categoryLabels.get_11rb$(categoryLink)
+    section.label = categoryLabel
+    form.sections.push(section)
+
+    const categoryAttributes = labelOverlay.categoryAttributes.get_11rb$(categoryLink).array_hd7ov6$_0
+
+    categoryAttributes.forEach(attrUuid => {
+      let attrName = leftAttributes.remove_11rb$(attrUuid)
+      let control = generateControl(attrUuid, attrName)
+      section.row.controls.push(control)
+    })
+  })
+  if (leftAttributes.size > 0) {
+    const section = _.cloneDeep(FORM_CONSTANTS.Section)
+    section.name = _.domUniqueID("section_")
+    section.clientKey = section.name
+    form.sections.push(section)
+
+    const iterator = leftAttributes.entries.iterator()
+    while(iterator.hasNext()) {
+      let element = iterator.next()
+      let attrUuid = element.key
+      let attrName = element.value
+      let control = generateControl(attrUuid, attrName)
+      section.row.controls.push(control)
+    }
   }
 
   Communicator.publish('form_rendered', { schema, form })
