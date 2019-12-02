@@ -31,6 +31,8 @@ export const createSchemaFromForm = (form) => {
 
     form.sections.forEach(section => {
       let category = section.label
+      let categories = [category]
+
       section.row.controls.forEach(control => {
           if (control.attrName.length <= 0) {
             throw "Attibute name cannot be empty"
@@ -45,7 +47,8 @@ export const createSchemaFromForm = (form) => {
               control.attrName,
               TYPE_MAPPER.inputType[control.type],
               control.isPII,
-              `${category} | ${control.label}`,
+              categories,
+              control.label,
               control.dateFormat,
               entry,
               control.encoding,
