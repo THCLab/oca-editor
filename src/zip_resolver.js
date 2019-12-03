@@ -35,9 +35,20 @@ export const exportToZip = (schema) => {
     }
 
     zip.generateAsync({type:"blob"}).then((content) => {
-      const filename = Math.random().toString(16).substring(2) +
-        Math.random().toString(16).substring(2) +
-        Math.random().toString(16).substring(9)
+        const filename = Math.random().toString(16).substring(2) +
+          Math.random().toString(16).substring(2) +
+          Math.random().toString(16).substring(9)
+
+        if (window.Cypress) {
+            const fr = new FileReader()
+            fr.addEventListener('load', () => {
+                window.sessionStorage
+                .setItem('zipBase64', fr.result.split(',')[1])
+            })
+            fr.readAsDataURL(content)
+
+            return
+        }
 
         saveAs(content, `${filename}.zip`);
     });
