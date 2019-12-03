@@ -35,7 +35,7 @@ export const createSchemaFromForm = (form) => {
 
       section.row.controls.forEach(control => {
           if (control.attrName.length <= 0) {
-            throw "Attibute name cannot be empty"
+            throw "Attribute name cannot be empty"
           }
 
           const entry = (control.dataOptions &&
