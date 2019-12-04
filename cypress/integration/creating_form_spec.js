@@ -19,8 +19,7 @@ describe('Creating form from scratch', function() {
       .trigger('mousemove', { which: 1, pageX: 400, pageY:300 })
       .trigger('mouseup')
 
-    cy.get('.col-md-12 > :nth-child(3)').as('exportBtn')
-      .click()
+    cy.get('#exportFormBtn').click()
 
     cy.get('.noty_text')
       .invoke('text')
@@ -33,7 +32,7 @@ describe('Creating form from scratch', function() {
     cy.get('.input-group > .form-control').eq(1)
       .type('test')
 
-    cy.get('@exportBtn').click().wait(100)
+    cy.get('#exportFormBtn').click().wait(100)
 
     cy.window().then(async (win) => {
       const zipBase64 = win.sessionStorage.getItem('zipBase64')

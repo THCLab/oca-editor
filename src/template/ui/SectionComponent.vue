@@ -10,7 +10,7 @@
                     <font-awesome-icon icon="image"/>
                     Preview
                 </button>
-                <button class="btn btn-default" @click="download">
+                <button class="btn btn-default" id='exportFormBtn' @click="download">
                     <font-awesome-icon icon="file-download"/>
                     Export
                 </button>
