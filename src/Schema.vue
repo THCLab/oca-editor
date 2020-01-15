@@ -14,8 +14,9 @@
 </template>
 
 <script>
-import FormBuilder from './FormBuilder';
+import { FormBuilder } from 'odca-form';
 import {get_form, update_form, save_form} from "./persistence";
+import {SethPhatToaster} from "./config/toaster";
 
 export default {
   name: "schema",

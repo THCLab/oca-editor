@@ -6275,7 +6275,7 @@ node-releases@^1.1.41:
   dependencies:
     semver "^6.3.0"
 
-node-sass@^4.11.0:
+node-sass@^4.11.0, node-sass@^4.13.0:
   version "4.13.0"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.13.0.tgz#b647288babdd6a1cb726de4545516b31f90da066"
   integrity sha512-W1XBrvoJ1dy7VsvTAS5q1V45lREbTlZQqFbiHb3R3OTTCma0XBtuG6xZ6Z4506nR4lmHPTqVRwxT6KgtWC97CA==
@@ -6359,6 +6359,11 @@ normalize-url@^3.0.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
+
+noty@^3.2.0-beta:
+  version "3.2.0-beta"
+  resolved "https://registry.yarnpkg.com/noty/-/noty-3.2.0-beta.tgz#cd1117277a1b83c9b08dfc78f968c6c5960d3cfa"
+  integrity sha512-a1//Rth1MTQ/GCvGzwBXrZqCwOPyxiIKMdHT1TlcdrDYBYVfb7vzwsU0N4x+j/HeIQTi6/pbP8lRtY9gBz/d3Q==
 
 npm-bundled@^1.0.1:
   version "1.0.6"
@@ -6499,6 +6504,38 @@ obuf@^1.0.0, obuf@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
+
+odca-form@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.4.tgz#d965637c8b41f55484612d47a5640a1f8f3b0232"
+  integrity sha512-+T7UegrjcTxZqpSWKvboA6WQUSj6chBtWuptu5T1wxzgc1fCzB3//KCalz8AH4dUvsoo5ij8cZW0qEAP7WEcMA==
+  dependencies:
+    "@fortawesome/fontawesome-svg-core" "^1.2.15"
+    "@fortawesome/free-solid-svg-icons" "^5.7.2"
+    "@fortawesome/vue-fontawesome" "^0.1.5"
+    bootstrap "^4.3.1"
+    bootstrap-vue "^2.0.0-rc.12"
+    core-js "^2.6.5"
+    file-saver "^2.0.2"
+    imports-loader "^0.8.0"
+    jquery ">=3.4.0"
+    jsonld "^1.5.3"
+    jszip "^3.2.2"
+    moment "^2.22.2"
+    node-sass "^4.13.0"
+    noty "^3.2.0-beta"
+    odca ">=0.0.8"
+    popper.js "^1.14.4"
+    sass-loader "^8.0.2"
+    select2 "^4.0.6-rc.1"
+    underscore "^1.9.1"
+    underscore-deep-extend "^1.1.5"
+    vue "^2.6.6"
+    vue-bootstrap-typeahead "^0.2.6"
+    vue-class-component "^7.0.2"
+    vue-property-decorator "^8.1.0"
+    vue-router "^3.0.2"
+    webpack-jquery-ui "^2.0.1"
 
 odca@>=0.0.8:
   version "0.0.8"
@@ -8009,6 +8046,17 @@ sass-loader@^7.1.0:
     pify "^4.0.1"
     semver "^6.3.0"
 
+sass-loader@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-8.0.2.tgz#debecd8c3ce243c76454f2e8290482150380090d"
+  integrity sha512-7o4dbSK8/Ol2KflEmSco4jTjQoV988bM82P9CZdmo9hR3RLnvNc0ufMNdMrB0caq38JQ/FgF4/7RcbcfKzxoFQ==
+  dependencies:
+    clone-deep "^4.0.1"
+    loader-utils "^1.2.3"
+    neo-async "^2.6.1"
+    schema-utils "^2.6.1"
+    semver "^6.3.0"
+
 sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
@@ -8030,6 +8078,14 @@ schema-utils@^1.0.0:
     ajv "^6.1.0"
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
+
+schema-utils@^2.6.1:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-2.6.2.tgz#9205ec5978709b0d9edbccb9a316faf11617a017"
+  integrity sha512-sazKNMBX/jwrXRkOI7N6dtiTVYqzSckzol8SGuHt0lE/v3xSW6cUkOqzu6Bq2tW+dlUzq3CWIqHU3ZKauliqdg==
+  dependencies:
+    ajv "^6.10.2"
+    ajv-keywords "^3.4.1"
 
 scss-tokenizer@^0.2.3:
   version "0.2.3"
