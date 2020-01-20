@@ -1,8 +1,12 @@
 import { EventHandlerConstant, eventBus, exportToZip, createSchemaFromForm } from 'odca-form'
 import { get_schemas } from './persistence'
-import {SethPhatToaster} from "./config/toaster";
+import { SethPhatToaster } from "./config/toaster";
 
 export const initOdcaCommunication = () => {
+  eventBus.$on(EventHandlerConstant.ERROR, (error) => {
+    SethPhatToaster.error(error);
+  })
+
   eventBus.$on(EventHandlerConstant.EXPORT_FORM, (form) => {
     let schema
 

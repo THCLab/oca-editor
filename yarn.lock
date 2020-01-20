@@ -6383,11 +6383,6 @@ normalize-url@^3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
   integrity sha512-U+JJi7duF1o+u2pynbp2zXDW2/PADgC30f0GsHZtRh+HOcXHnw137TrNlyxxRvWW5fjKd3bcLHPxofWuCjaeZg==
 
-noty@^3.2.0-beta:
-  version "3.2.0-beta"
-  resolved "https://registry.yarnpkg.com/noty/-/noty-3.2.0-beta.tgz#cd1117277a1b83c9b08dfc78f968c6c5960d3cfa"
-  integrity sha512-a1//Rth1MTQ/GCvGzwBXrZqCwOPyxiIKMdHT1TlcdrDYBYVfb7vzwsU0N4x+j/HeIQTi6/pbP8lRtY9gBz/d3Q==
-
 npm-bundled@^1.0.1:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.0.6.tgz#e7ba9aadcef962bb61248f91721cd932b3fe6bdd"
@@ -6528,10 +6523,10 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-odca-form@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.5.tgz#5399a9fb8344422ef8e42c6df554fe00f710cf2f"
-  integrity sha512-Sf9HIjjTefSFjlN/7SVsyNo2Hgh27OtLBegVJvbRvfiw/FtX6wHNHqQlcjv1OWVxaxGbzDU/xYKrjkiJY9mt4w==
+odca-form@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.6.tgz#9729583b1702b14e7754cb92c0735bbfdfdcd528"
+  integrity sha512-qgRwPIXwuADWr9AHODd4ub6ikZwx4RY7EZ2PX2JjC0a0JN2uBYHQr9THYOmoUI/W79FfVzE7+CM0s3/QYYGJrg==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.15"
     "@fortawesome/free-solid-svg-icons" "^5.7.2"
@@ -6546,7 +6541,6 @@ odca-form@^0.0.5:
     jszip "^3.2.2"
     moment "^2.22.2"
     node-sass "^4.13.0"
-    noty "^3.2.0-beta"
     odca ">=0.0.8"
     popper.js "^1.14.4"
     sass-loader "^8.0.2"
