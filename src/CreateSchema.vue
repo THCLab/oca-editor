@@ -93,10 +93,8 @@
 <script>
 
 import { save_schema, save_form } from "./persistence"
-import { resolveZipFile } from './zip_resolver'
-import { renderForm } from './form_renderer'
-import { EventHandlerConstant, eventBus } from '@/template/handler/event_handler'
-import { FORM_CONSTANTS } from './config/constants'
+import { EventHandlerConstant, eventBus, resolveZipFile,
+  renderForm, renderEmptyForm } from 'odca-form'
 const uuid = require('uuid/v4')
 
 export default {
@@ -119,11 +117,8 @@ export default {
       // key 'schemas' store schema list, so it can't be overriden
       if (this.form.name != 'schemas') {
         const created = save_schema(this.form);
-        save_form(this.form.name, {
-          uuid: this.form.uuid,
-          section: _.cloneDeep(FORM_CONSTANTS.Section),
-          type: ""
-        })
+        const emptyForm = renderEmptyForm(this.form.uuid, this.form.name)
+        save_form(this.form.name, emptyForm)
         if (created) {
           this.$router.push("schemas");
         }
@@ -132,17 +127,15 @@ export default {
     onUploadForm() {
       if (this.file) {
         resolveZipFile(this.file).then(results => {
-          results.forEach(schemaData => renderForm(schemaData))
+          results.forEach(schemaData => {
+            let { schema, form } = renderForm(schemaData)
+            save_schema(schema);
+            save_form(schema.name, form)
+          })
           this.$router.push("schemas");
         })
       }
     }
-  },
-  created() {
-    eventBus.$on(EventHandlerConstant.FORM_RENDERED, ({ schema, form }) => {
-      save_schema(schema);
-      save_form(schema.name, form)
-    })
   }
 };
 </script>

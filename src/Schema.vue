@@ -14,8 +14,9 @@
 </template>
 
 <script>
-import FormBuilder from './FormBuilder';
+import { FormBuilder } from 'odca-form';
 import {get_form, update_form, save_form} from "./persistence";
+import {SethPhatToaster} from "./config/toaster";
 
 export default {
   name: "schema",
@@ -25,7 +26,7 @@ export default {
   props: ["name"],
   methods: {
     resetForm() {
-      this.formData.section.row.controls = [];
+      this.formData.sections[0].row.controls = [];
     },
     loadOldForm() {
       try {
@@ -60,7 +61,7 @@ export default {
       formBuilderOptions: {
         hooks: {
           'Section.beforeAdd': function(sectionInfo) {
-            console.log(sectionInfo)
+            // console.log(sectionInfo)
           }
         }
       }

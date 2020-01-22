@@ -1,3 +1,5 @@
+![](https://github.com/olichwiruk/tool/workflows/e2e%20tests/badge.svg)
+
 # tool
 
 Tool for creating and dealing with schema base & overlays.

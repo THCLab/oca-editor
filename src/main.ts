@@ -11,6 +11,8 @@ library.add(faPlus, faTimes, faLock, faUnlock, faEdit, faTrash, faLanguage)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('font-awesome-layers', FontAwesomeLayers)
 
+require('./assets/js/jquery.noty.packaged')
+
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
