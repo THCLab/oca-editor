@@ -59,7 +59,7 @@
       <b-col cols="6" class="fileCol">
         <b-row align-h="center">
           <b-col cols="12">
-            <h1>Upload Form file</h1>
+            <h1>Upload Form zip file</h1>
           </b-col>
 
           <b-col sm="10" lg="81" class="fileInput">
@@ -69,6 +69,8 @@
                 id="chooseFile"
                 accept=".zip"
               />
+              <p>
+              Don't have one yet? Try example download file and upload it: <a href="/tprm.zip"> tprm.zip</a> </p>
           </b-col>
 
           <b-col sm="10" lg="81" class="uploadBtn">
