@@ -4,7 +4,7 @@
       <b-col cols="6" class="newFormCol">
         <b-row align-h="center">
           <b-col cols="12">
-            <h1>Create Form</h1>
+            <h1>Create OCA</h1>
           </b-col>
 
           <b-col sm="10" lg="81">

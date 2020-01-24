@@ -3,6 +3,7 @@ import Router from "vue-router"
 import SchemaList from "./SchemaList.vue"
 import CreateSchema from "./CreateSchema.vue"
 import Schema from "./Schema.vue"
+import About from "./About.vue"
 
 Vue.use(Router)
 
@@ -11,6 +12,7 @@ export default new Router({
     routes: [
         { path: '/', component: CreateSchema },
         { path: '/schemas', component: SchemaList },
-        { path: "/schemas/:name", component: Schema, props: true }
+        { path: "/schemas/:name", component: Schema, props: true },
+        { path: "/about", component: About}
     ]
 })
