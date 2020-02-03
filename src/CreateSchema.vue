@@ -88,6 +88,23 @@
           </b-col>
         </b-row>
       </b-col>
+
+      <b-col cols="6" class="calculateHashlinkCol">
+        <b-row align-h="center">
+          <b-col cols="12">
+            <h1>Calculate hashlink</h1>
+          </b-col>
+
+          <b-col sm="10" lg="81">
+            <b-form-file
+              v-model="jsonFile"
+              :file-name-formatter="formatNames"
+              size="md"
+              accept=".json"/>
+          </b-col>
+          <p class="fileHashlink" v-if="fileHashlink">Hashlink: {{ fileHashlink }}</p>
+        </b-row>
+      </b-col>
     </b-row>
   </b-container>
 </template>
@@ -95,6 +112,7 @@
 <script>
 
 import { save_schema, save_form } from "./persistence"
+import { generateHashlink } from "./hashlink_generator";
 import { EventHandlerConstant, eventBus, resolveZipFile,
   renderForm, renderEmptyForm } from 'odca-form'
 const uuid = require('uuid/v4')
@@ -104,6 +122,8 @@ export default {
   data() {
     return {
       file: null,
+      jsonFile: null,
+      fileHashlink: null,
       form: {
         name: "",
         description: "",
@@ -113,6 +133,20 @@ export default {
         version: "1"
       }
     };
+  },
+  watch: {
+    jsonFile: function() {
+      if (this.jsonFile) {
+        const fr = new FileReader()
+        fr.onload = (e) => {
+          let jsonFileContent = JSON.parse(e.target.result)
+          this.fileHashlink = generateHashlink(jsonFileContent)
+        }
+        fr.readAsText(this.jsonFile)
+      } else {
+        this.fileHashlink = null
+      }
+    }
   },
   methods: {
     onCreateForm() {
@@ -137,6 +171,13 @@ export default {
           this.$router.push("schemas");
         })
       }
+    },
+    formatNames(files) {
+      if (files[0].name.length > 23)
+        return `${files[0].name.substring(0, 20)}...`
+      else {
+        return files[0].name
+      }
     }
   }
 };
@@ -157,7 +198,16 @@ export default {
     bottom: 10%;
   }
 
-  .newFormCol {
+  .calculateHashlinkCol {
+    margin-top: 50px;
+    min-height: 180px;
+  }
+
+  .fileHashlink {
+    padding-top: 10px;
+  }
+
+  .newFormCol, .calculateHashlinkCol {
     border-right: 1px solid #ced4da;
   }
 
