@@ -6535,10 +6535,10 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-odca-form@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.7.tgz#61877af6bcdc68da1e7327d27e0b83bce894af0e"
-  integrity sha512-n3Pu4WrF+0yfpDNhH39dL1CtE1VSuK5tSxN2zSOhhZIUl3jDKQPfEJAFBWoHJzLTmpoMYEYRBkqZ9CpYrP2w1w==
+odca-form@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.8.tgz#82f114e48607b6796806f5521845d6ef34bccc6b"
+  integrity sha512-afCkTGFjHZNGQKew09LxG8Cj56JyPv64+cvVZqtoRr7BitfmBqvbEHMfV6Jm/LY3uQrZJIxX+C3roLix4EMJ8A==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.15"
     "@fortawesome/free-solid-svg-icons" "^5.7.2"
@@ -6553,7 +6553,7 @@ odca-form@^0.0.7:
     jszip "^3.2.2"
     moment "^2.22.2"
     node-sass "^4.13.0"
-    odca ">=0.0.8"
+    odca ">=0.0.9"
     popper.js "^1.14.4"
     sass-loader "^8.0.2"
     select2 "^4.0.6-rc.1"
@@ -6566,10 +6566,10 @@ odca-form@^0.0.7:
     vue-router "^3.0.2"
     webpack-jquery-ui "^2.0.1"
 
-odca@>=0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/odca/-/odca-0.0.8.tgz#442c2b09bd7621063bc6ec21322f5ca4dab652af"
-  integrity sha512-Qj3yk+zuCmOxJEekYg2s52nGg2faLs17V3jWtsa7pLe8YLiHL+wgX5nOYmPYb8nRRLeHm5pWOjdGusGy1Q9iRA==
+odca@>=0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/odca/-/odca-0.0.9.tgz#f1402d5684225b201404197951930c2b672f82d3"
+  integrity sha512-LyjOoMjcZ8YfbQw7KYty5b5UJs4/0F5dSeupelN/I4ocJZrO8wxunl8j6hBe/sTePGW/9MBpC9pgHzW+KqCajw==
   dependencies:
     kotlin "^1.3.40"
     link-module-alias "^1.2.0"
