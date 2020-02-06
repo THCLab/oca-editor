@@ -1,6 +1,7 @@
 import { EventHandlerConstant, eventBus, exportToZip, createSchemaFromForm } from 'odca-form'
 import { get_schemas } from './persistence'
 import { SethPhatToaster } from "./config/toaster";
+import { generateHashlink } from "./hashlink_generator";
 
 export const initOdcaCommunication = () => {
   eventBus.$on(EventHandlerConstant.ERROR, (error) => {
@@ -23,5 +24,14 @@ export const initOdcaCommunication = () => {
     if (schema) {
       exportToZip(schema)
     }
+  })
+
+  eventBus.$on(EventHandlerConstant.SAVE_PREVIEW, (data) => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2))
+    const el = document.createElement('a')
+    el.setAttribute('href', dataStr)
+    el.setAttribute('download', `${generateHashlink(data)}.json`)
+    el.click()
+    el.remove()
   })
 }
