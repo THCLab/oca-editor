@@ -26,11 +26,16 @@ export const initOdcaCommunication = () => {
     }
   })
 
-  eventBus.$on(EventHandlerConstant.SAVE_PREVIEW, (data) => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2))
+  eventBus.$on(EventHandlerConstant.SAVE_PREVIEW, async (data) => {
     const el = document.createElement('a')
-    el.setAttribute('href', dataStr)
-    el.setAttribute('download', `${generateHashlink(data)}.json`)
+    const dataStr = JSON.stringify(data, null, 2)
+    const dataLink = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2))
+    el.setAttribute('href', dataLink)
+
+    const buffer = Buffer.from(dataStr)
+    const hashlink = await generateHashlink(buffer)
+    el.setAttribute('download', `${hashlink.split(':')[1]}.json`)
+
     el.click()
     el.remove()
   })
