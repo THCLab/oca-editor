@@ -92,7 +92,7 @@
       <b-col cols="6" class="calculateHashlinkCol">
         <b-row align-h="center">
           <b-col cols="12">
-            <h1>Calculate hashlink</h1>
+            <h2>Calculate hashlink</h2>
           </b-col>
 
           <b-col sm="10" lg="81">
@@ -104,12 +104,29 @@
           <p class="fileHashlink" v-if="fileHashlink">{{ fileHashlink }}</p>
         </b-row>
       </b-col>
+
+      <b-col cols="6" class="convertCsvCol">
+        <b-row align-h="center">
+          <b-col cols="12">
+            <h2>Convert <a href="https://github.com/THCLab/odca-ruby#how-to-build-input-for-parser">CSV file</a> to OCA</h2>
+          </b-col>
+
+          <b-col sm="10" lg="81">
+            <b-form-file
+              v-model="csvFile"
+              :file-name-formatter="formatNames"
+              size="md"
+              accept=".csv" />
+          </b-col>
+          <p class="convertedFileUrl" v-if="convertedFileUrl">Download <a :href="convertedFileUrl"> output form zip file</a> which can be uploaded above</p>
+        </b-row>
+      </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-
+import axios from 'axios';
 import { save_schema, save_form } from "./persistence"
 import { generateHashlink } from "./hashlink_generator";
 import { EventHandlerConstant, eventBus, resolveZipFile,
@@ -122,6 +139,8 @@ export default {
     return {
       file: null,
       calculatedFile: null,
+      csvFile: null,
+      convertedFileUrl: null,
       fileHashlink: null,
       form: {
         name: "",
@@ -145,6 +164,24 @@ export default {
         fr.readAsArrayBuffer(this.calculatedFile)
       } else {
         this.fileHashlink = null
+      }
+    },
+    csvFile: function() {
+      if (this.csvFile) {
+        const fd = new FormData();
+        fd.append('file', this.csvFile);
+
+        axios({
+          method: 'post',
+          url: 'https://tool.odca.online/',
+          data: fd
+        }).then(response => {
+          const contentUrl = `${response.config.url}${response.data}`
+          this.convertedFileUrl = contentUrl
+          window.location.replace(contentUrl)
+        })
+      } else {
+        this.convertedFileUrl = null
       }
     }
   },
@@ -188,6 +225,10 @@ export default {
     padding-bottom: 30px;
   }
 
+  h2 {
+    padding-bottom: 20px;
+  }
+
   .newFormCol, .fileCol {
     position: relative;
     min-height: 360px;
@@ -198,12 +239,12 @@ export default {
     bottom: 10%;
   }
 
-  .calculateHashlinkCol {
+  .calculateHashlinkCol, .convertCsvCol {
     margin-top: 50px;
     min-height: 180px;
   }
 
-  .fileHashlink {
+  .fileHashlink, .convertedFileUrl {
     padding-top: 10px;
   }
 
@@ -211,7 +252,7 @@ export default {
     border-right: 1px solid #ced4da;
   }
 
-  .fileCol {
+  .fileCol, .convertCsvCol {
     border-left: 1px solid #ced4da;
   }
 </style>
