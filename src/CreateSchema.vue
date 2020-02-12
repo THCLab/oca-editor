@@ -97,12 +97,11 @@
 
           <b-col sm="10" lg="81">
             <b-form-file
-              v-model="jsonFile"
+              v-model="calculatedFile"
               :file-name-formatter="formatNames"
-              size="md"
-              accept=".json"/>
+              size="md" />
           </b-col>
-          <p class="fileHashlink" v-if="fileHashlink">Hashlink: {{ fileHashlink }}</p>
+          <p class="fileHashlink" v-if="fileHashlink">{{ fileHashlink }}</p>
         </b-row>
       </b-col>
     </b-row>
@@ -122,7 +121,7 @@ export default {
   data() {
     return {
       file: null,
-      jsonFile: null,
+      calculatedFile: null,
       fileHashlink: null,
       form: {
         name: "",
@@ -135,14 +134,15 @@ export default {
     };
   },
   watch: {
-    jsonFile: function() {
-      if (this.jsonFile) {
+    calculatedFile: function() {
+      if (this.calculatedFile) {
         const fr = new FileReader()
-        fr.onload = (e) => {
-          let jsonFileContent = JSON.parse(e.target.result)
-          this.fileHashlink = generateHashlink(jsonFileContent)
+        fr.onload = async (e) => {
+          const fileBuffer = e.target.result
+          const hashlink = await generateHashlink(fileBuffer)
+          this.fileHashlink = hashlink.split(':')[1]
         }
-        fr.readAsText(this.jsonFile)
+        fr.readAsArrayBuffer(this.calculatedFile)
       } else {
         this.fileHashlink = null
       }

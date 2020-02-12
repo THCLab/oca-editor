@@ -1,13 +1,7 @@
-const BASE58_ALPHABET = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
-const base58 = require('base-x')(BASE58_ALPHABET)
-const sha256 = require('js-sha256')
+const hl = require('hashlink')
 
-export const generateHashlink = (data) => {
-    return base58.encode(
-        Buffer.from(
-            sha256.create().update(
-                JSON.stringify(data)
-            ).digest()
-        )
-    )
+export const generateHashlink = async (data) => {
+    let urls, meta = undefined;
+    const codecs = ['mh-sha2-256', 'mb-base58-btc'];
+    return await hl.encode({data, urls, codecs, meta});
 }
