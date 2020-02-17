@@ -1,7 +1,7 @@
 version: '3'
 services:
   tool:
-    image: olichwiruk/tool
+    image: humancolossus/oca-editor
     build: ./
     ports:
       - 8080:8080
