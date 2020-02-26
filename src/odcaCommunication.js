@@ -2,13 +2,14 @@ import { EventHandlerConstant, eventBus, exportToZip, createSchemaFromForm } fro
 import { get_schemas } from './persistence'
 import { SethPhatToaster } from "./config/toaster";
 import { generateHashlink } from "./hashlink_generator";
+import { saveAs } from 'file-saver'
 
 export const initOdcaCommunication = () => {
   eventBus.$on(EventHandlerConstant.ERROR, (error) => {
     SethPhatToaster.error(error);
   })
 
-  eventBus.$on(EventHandlerConstant.EXPORT_FORM, (form) => {
+  eventBus.$on(EventHandlerConstant.EXPORT_FORM, async (form) => {
     let schema
 
     try {
@@ -22,7 +23,12 @@ export const initOdcaCommunication = () => {
     }
 
     if (schema) {
-      exportToZip(schema)
+      const blob = await exportToZip(schema)
+      const filename = Math.random().toString(16).substring(2) +
+        Math.random().toString(16).substring(2) +
+        Math.random().toString(16).substring(9)
+
+      saveAs(blob, `${filename}.zip`);
     }
   })
 
