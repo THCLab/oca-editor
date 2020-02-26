@@ -4,7 +4,7 @@
       <div class="schema-info">
         <h1>{{name}}</h1>
       </div>
-      <form-builder type="template" v-model="formData" :options="formBuilderOptions"></form-builder>
+      <form-builder type="template" ref='FormBuilder' v-model="formData" :options="formBuilderOptions"></form-builder>
     </div>
     <div class="text-right mt-3" style="margin: 0px 20px;">
       <button class="btn btn-default" @click="resetForm">Reset</button>
@@ -50,6 +50,12 @@ export default {
   },
   created() {
     this.loadOldForm();
+  },
+  mounted() {
+    this.$refs.FormBuilder
+      .$refs.FormBuilderTemplate
+      .$refs.SectionComponent
+      .publishForm.host = process.env.VUE_APP_DEFAULT_OCA_REPOSITORY || ""
   },
   beforeDestroy() {
     this.formData = null;
