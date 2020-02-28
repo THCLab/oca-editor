@@ -56,6 +56,14 @@ export default {
       .$refs.FormBuilderTemplate
       .$refs.SectionComponent
       .publishForm.host = process.env.VUE_APP_DEFAULT_OCA_REPOSITORY || ""
+    this.$refs.FormBuilder
+      .$refs.FormBuilderTemplate
+      .$refs.PreviewComponent
+      .hashlinkInfo.fileserver = process.env.VUE_APP_DEFAULT_FILESERVER || ""
+    this.$refs.FormBuilder
+      .$refs.FormBuilderTemplate
+      .$refs.PreviewComponent
+      .hashlinkInfo.ocaRepo.host = process.env.VUE_APP_DEFAULT_OCA_REPOSITORY || ""
   },
   beforeDestroy() {
     this.formData = null;
