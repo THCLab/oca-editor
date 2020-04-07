@@ -24,5 +24,6 @@ new Vue({
   render: h => h(App),
 }).$mount('#app')
 
+// @ts-ignore
 import { initOdcaCommunication } from './odcaCommunication'
 initOdcaCommunication()
