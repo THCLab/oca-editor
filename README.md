@@ -1,8 +1,8 @@
 ![](https://github.com/olichwiruk/tool/workflows/e2e%20tests/badge.svg)
 
-# tool
+# OCA Editor
 
-Tool for creating and dealing with schema base & overlays.
+OCA Editor for creating and dealing with schema base & overlays.
 
 ## Project setup
 ```
