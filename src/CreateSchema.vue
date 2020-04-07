@@ -173,7 +173,7 @@ export default {
 
         axios({
           method: 'post',
-          url: 'https://tool.odca.online/',
+          url: 'https://tool.oca.argo.colossi.network/',
           data: fd
         }).then(response => {
           const contentUrl = `${response.config.url}${response.data}`
