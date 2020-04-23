@@ -55,12 +55,12 @@ export const initOdcaCommunication = () => {
 
       axios({
         method: 'post',
-        url: `${info.host}/v2/schemas/${info.namespace}`,
+        url: `${info.host}/api/v2/schemas/${info.namespace}`,
         data: fd
       })
         .then(r => {
           let dri = r.data.url.split('/').reverse()[0]
-          let url = `${info.host}/v2/schemas/${info.namespace}/${dri}`
+          let url = `${info.host}/api/v2/schemas/${info.namespace}/${dri}`
           window.open(url, '_blank')
         })
         .catch(e => SethPhatToaster.error(e))
@@ -114,7 +114,7 @@ export const initOdcaCommunication = () => {
       const urls = [`${info.fileserver}/${hashlink.split(':')[1]}.json`]
       const meta = {
         experimental: {
-          host: `${info.ocaRepo.host}/v2/schemas/${info.ocaRepo.namespace}/`,
+          host: `${info.ocaRepo.host}/api/v2/schemas/${info.ocaRepo.namespace}/`,
           'schema-base': schemaBaseId,
           overlays: overlayIds.sort()
         }
