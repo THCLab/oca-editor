@@ -58,7 +58,11 @@ export const initOdcaCommunication = () => {
         url: `${info.host}/v2/schemas/${info.namespace}`,
         data: fd
       })
-        .then(r => window.open(r.data.url, '_blank'))
+        .then(r => {
+          let dri = r.data.url.split('/').reverse()[0]
+          let url = `${info.host}/v2/schemas/${info.namespace}/${dri}`
+          window.open(url, '_blank')
+        })
         .catch(e => SethPhatToaster.error(e))
     }
   })
