@@ -129,6 +129,7 @@
 import axios from 'axios';
 import { save_schema, save_form } from "./persistence"
 import { generateHashlink } from "./hashlink_generator";
+import { SethPhatToaster } from "./config/toaster"
 import { EventHandlerConstant, eventBus, resolveZipFile,
   renderForm, renderEmptyForm } from 'odca-form'
 const uuid = require('uuid/v4')
@@ -200,12 +201,16 @@ export default {
     onUploadForm() {
       if (this.file) {
         resolveZipFile(this.file).then(results => {
-          results.forEach(schemaData => {
-            let { schema, form } = renderForm(schemaData)
-            save_schema(schema);
-            save_form(schema.name, form)
-          })
-          this.$router.push("schemas");
+          try {
+            results.forEach(schemaData => {
+              let { schema, form } = renderForm(schemaData)
+              save_schema(schema);
+              save_form(schema.name, form)
+            })
+            this.$router.push("schemas");
+          } catch(e) {
+            SethPhatToaster.error("Form data are corrupted");
+          }
         })
       }
     },
