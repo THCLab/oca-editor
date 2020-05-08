@@ -16,7 +16,7 @@ describe('Creating form from scratch', function() {
 
     cy.get('[data-control-type="text"]')
       .trigger('mousedown', { which: 1 })
-      .trigger('mousemove', { which: 1, pageX: 400, pageY:300 })
+      .trigger('mousemove', { which: 1, pageX: 400, pageY:350 })
       .trigger('mouseup')
 
     cy.get('#exportFormBtn').click()
@@ -39,7 +39,7 @@ describe('Creating form from scratch', function() {
 
       await JSZip.loadAsync(zipBase64, { base64: true })
         .then(zip => {
-          expect(Object.keys(zip.files)).to.have.lengthOf(5)
+          expect(Object.keys(zip.files)).to.have.lengthOf(4)
           expect(zip.files).to.have.property(`${name}.json`)
         }, e => {
           expect(e).not.to.be.an('Error')
