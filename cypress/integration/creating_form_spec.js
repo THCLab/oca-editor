@@ -16,7 +16,7 @@ describe('Creating form from scratch', function() {
 
     cy.get('[data-control-type="text"]')
       .trigger('mousedown', { which: 1 })
-      .trigger('mousemove', { which: 1, pageX: 400, pageY:350 })
+      .trigger('mousemove', { which: 1, pageX: 400, pageY:400 })
       .trigger('mouseup')
 
     cy.get('#exportFormBtn').click()

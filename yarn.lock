@@ -901,6 +901,11 @@
     node-rsa "^0.4.0"
     text-encoding "^0.6.1"
 
+"@ttskch/select2-bootstrap4-theme@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@ttskch/select2-bootstrap4-theme/-/select2-bootstrap4-theme-1.4.0.tgz#1e15ed14c5adbd6f86940811e195bde984aa9882"
+  integrity sha512-5WVMdFpQLx0vKxX0/LfapI0aE+qUYOuOuMjOc+ecN8vsr7plcBsgIbp4YtlpLmQR9aqgyM1QyqEiO/FwB+qaqQ==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -6696,14 +6701,15 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-odca-form@^0.0.19:
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.19.tgz#d7235e27deed1b216cf5ac00ef9391a743745b9c"
-  integrity sha512-KdpPZyi7YQJrtKinpkhSOUQKmqhuS5I8RatypKTFQq2qr4p8hwNNOVgxiqRd0RfRl8RdKr42usvZ/z3ygLkmRg==
+odca-form@^0.0.22:
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.22.tgz#724a885f69c37bf9c5bf9fe16d8e91379c8cc2a6"
+  integrity sha512-PdKQEApdHC0M7ocKJZvMXn/nAMB3/0vsIBkf/hGyNmzN3BMhevVhtD/b5P3u1Md7p/aqoW21TM2TjMVIllSi1w==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.15"
     "@fortawesome/free-solid-svg-icons" "^5.7.2"
     "@fortawesome/vue-fontawesome" "^0.1.5"
+    "@ttskch/select2-bootstrap4-theme" "^1.4.0"
     bootstrap "^4.3.1"
     bootstrap-vue "^2.0.0-rc.12"
     core-js "^2.6.5"
@@ -9637,6 +9643,14 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
+
+vue-typeahead-bootstrap@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vue-typeahead-bootstrap/-/vue-typeahead-bootstrap-1.0.2.tgz#e124ed7afe7ac1f66a9f62a7482bf5b00fb7ce98"
+  integrity sha512-oDeiJ5d1UdVazDGIBS0IbCYJCNbOdmHwwIZ3F+Zo/MJCnfUcWXvEA57D6+osdmRFVwYq15guy1rzpcwkHEn7Qw==
+  dependencies:
+    resize-observer-polyfill "^1.5.0"
+    vue "^2.5.17"
 
 vue@^2.5.17, vue@^2.6.6:
   version "2.6.10"
