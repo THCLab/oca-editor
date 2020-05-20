@@ -96,7 +96,7 @@
                 accept=".zip"
               />
               <p>
-              Don't have one yet? Try example download file and upload it: <a href="/tprm.zip"> tprm.zip</a> </p>
+              Don't have one yet? Try <a href="#" @click="playDemo()">demo</a></p>
           </b-col>
 
           <b-col sm="10" lg="81" class="uploadBtn">
@@ -274,6 +274,14 @@ export default {
           }
         })
       }
+    },
+    playDemo() {
+      axios.get('/tprm.zip', { responseType: 'arraybuffer' })
+        .then(zipResponse => {
+          const blob = new Blob([zipResponse.data], {type: "octet/stream"});
+          this.file = new File([blob], 'file.zip')
+          this.onUploadForm()
+        })
     },
     formatNames(files) {
       if (files[0].name.length > 23)
