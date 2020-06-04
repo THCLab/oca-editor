@@ -59,10 +59,36 @@
       <b-col cols="6" class="fileCol">
         <b-row align-h="center">
           <b-col cols="12">
-            <h1>Upload Form zip file</h1>
+            <h1>Upload OCA</h1>
           </b-col>
 
           <b-col sm="10" lg="81" class="fileInput">
+              <vue-bootstrap-typeahead
+                size="lg"
+                :showOnFocus="true"
+                :minMatchingChars="1"
+                placeholder="Search in OCA Repository"
+                v-model="ocaSchemaSearch.query"
+                :data="ocaSchemaSearch.data.length == 0 ? ocaSchemaSearch.all : ocaSchemaSearch.data"
+                :serializer="s => s.schemaName"
+                @hit="getOcaSchema"
+              >
+                  <template slot="append">
+                    <b-button
+                    class="btn-sm"
+                    slot="append"
+                    variant="primary"
+                    v-show="ocaForm && ocaSchemaSearch.query"
+                    @click="preview()">Preview</b-button>
+                  </template>
+
+                  <template slot="suggestion" slot-scope="{ data, htmlText }">
+                      <small>{{ data.namespace }}/</small>
+                      <span v-html="htmlText"></span>
+                  </template>
+              </vue-bootstrap-typeahead>
+              {{ ocaSchemaSearch.selected }}
+              <p style="margin: 15px 0 0 0">or choose zip file</p>
               <b-form-file
                 v-model="file"
                 size="lg"
@@ -70,7 +96,7 @@
                 accept=".zip"
               />
               <p>
-              Don't have one yet? Try example download file and upload it: <a href="/tprm.zip"> tprm.zip</a> </p>
+              Don't have one yet? Try <a href="#" @click="playDemo()">demo</a></p>
           </b-col>
 
           <b-col sm="10" lg="81" class="uploadBtn">
@@ -122,6 +148,8 @@
         </b-row>
       </b-col>
     </b-row>
+
+    <preview-component style="z-index: 9999;" ref="PreviewComponent" :readonly="true" :form="ocaForm" :alternatives="ocaFormAlternatives"></preview-component>
   </b-container>
 </template>
 
@@ -129,12 +157,16 @@
 import axios from 'axios';
 import { save_schema, save_form } from "./persistence"
 import { generateHashlink } from "./hashlink_generator";
+import { SethPhatToaster } from "./config/toaster"
 import { EventHandlerConstant, eventBus, resolveZipFile,
-  renderForm, renderEmptyForm } from 'odca-form'
+  renderForm, renderEmptyForm, PreviewComponent } from 'odca-form'
+import VueBootstrapTypeahead from "vue-typeahead-bootstrap";
+
 const uuid = require('uuid/v4')
 
 export default {
   name: "create-schema",
+  components: { VueBootstrapTypeahead, PreviewComponent },
   data() {
     return {
       file: null,
@@ -142,6 +174,17 @@ export default {
       csvFile: null,
       convertedFileUrl: null,
       fileHashlink: null,
+      ocaForm: null,
+      ocaFormAlternatives: [],
+      ocaRepo: {
+        host: process.env.VUE_APP_DEFAULT_OCA_REPOSITORY || ''
+      },
+      ocaSchemaSearch: {
+        query: '',
+        all: [],
+        data: [],
+        selected: null
+      },
       form: {
         name: "",
         description: "",
@@ -151,6 +194,18 @@ export default {
         version: "1"
       }
     };
+  },
+  created() {
+    axios.get(`${this.ocaRepo.host}/api/v2/schemas?_index=schema_base&limit=7`)
+    .then(r => {
+      this.ocaSchemaSearch.all = r.data.map(x => {
+        return {
+          namespace: x.namespace,
+          DRI: x.DRI,
+          schemaName: x.schema.name
+        }
+      })
+    })
   },
   watch: {
     calculatedFile: function() {
@@ -183,7 +238,14 @@ export default {
       } else {
         this.convertedFileUrl = null
       }
-    }
+    },
+    'ocaSchemaSearch.query': function(input) {
+      if(input.length == 0) {
+        this.ocaForm = null
+        this.file = null
+      }
+      this.fetchOcaSchemas(input)
+    },
   },
   methods: {
     onCreateForm() {
@@ -200,14 +262,26 @@ export default {
     onUploadForm() {
       if (this.file) {
         resolveZipFile(this.file).then(results => {
-          results.forEach(schemaData => {
-            let { schema, form } = renderForm(schemaData)
-            save_schema(schema);
-            save_form(schema.name, form)
-          })
-          this.$router.push("schemas");
+          try {
+            results.forEach(schemaData => {
+              let { schema, form } = renderForm(schemaData)
+              save_schema(schema);
+              save_form(schema.name, form)
+            })
+            this.$router.push("schemas");
+          } catch(e) {
+            SethPhatToaster.error("Form data are corrupted");
+          }
         })
       }
+    },
+    playDemo() {
+      axios.get('/tprm.zip', { responseType: 'arraybuffer' })
+        .then(zipResponse => {
+          const blob = new Blob([zipResponse.data], {type: "octet/stream"});
+          this.file = new File([blob], 'file.zip')
+          this.onUploadForm()
+        })
     },
     formatNames(files) {
       if (files[0].name.length > 23)
@@ -215,7 +289,78 @@ export default {
       else {
         return files[0].name
       }
-    }
+    },
+    fetchOcaSchemas(input) {
+      axios.get(`${this.ocaRepo.host}/api/v2/schemas?suggest=${input}`)
+      .then(r => {
+        this.ocaSchemaSearch.data = r.data.map(x => {
+          return {
+            namespace: x.namespace,
+            DRI: x.DRI,
+            schemaName: x.schema.name
+          }
+        })
+      })
+    },
+    getOcaSchema: async function(schema) {
+      this.ocaFormAlternatives = []
+      const result = await axios.get(`${this.ocaRepo.host}/api/v2/schemas?_index=branch&schema_base=${schema.DRI}`)
+      const branchesBase = result.data.filter(e => e.namespace == schema.namespace)
+      const branchBase = branchesBase[0]
+      const branchResponse = await axios.get(`${this.ocaRepo.host}/api/v2/schemas/${branchBase.namespace}/${branchBase.DRI}`)
+      const branch = branchResponse.data
+      const langBranches = this.splitBranchPerLang(branch)
+
+      let url = `${this.ocaRepo.host}/api/v2/schemas/${branchBase.namespace}/${branchBase.DRI}/archive`
+      axios.get(url, { responseType: 'arraybuffer' })
+        .then(zipResponse => {
+          const blob = new Blob([zipResponse.data], {type: "octet/stream"});
+          this.file = new File([blob], 'file.zip')
+        })
+
+      try {
+          langBranches.forEach(langBranch => {
+            this.ocaFormAlternatives.push({
+              language: langBranch.lang,
+              form: renderForm([langBranch.branch.schema_base, ...langBranch.branch.overlays]).form
+            })
+          })
+
+          this.ocaForm = this.ocaFormAlternatives[0].form
+      } catch {
+          SethPhatToaster.error("ERROR! Form data are corrupted.", {
+            timeout: 1000
+          })
+      }
+    },
+    splitBranchPerLang: function(branch) {
+      const langBranches = []
+      const labelOverlays = branch.overlays.filter(o => o.type.includes("label"))
+      const languages = labelOverlays.map(o => o.language)
+      const schemaBase = branch.schema_base
+      languages.forEach(lang => {
+        langBranches.push({
+          lang: lang,
+          branch: {
+            schema_base: schemaBase,
+            overlays: branch.overlays.filter(o => {
+              if(!o.language) { return true }
+              return o.language == lang
+            })
+          }
+        })
+      })
+      return langBranches
+    },
+    preview() {
+      try {
+          this.$refs.PreviewComponent.openModal(this.ocaForm);
+      } catch(e) {
+          SethPhatToaster.error("ERROR! Form data are corrupted.", {
+            timeout: 1000
+          })
+      }
+    },
   }
 };
 </script>

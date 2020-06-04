@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { FormBuilder } from 'odca-form';
+import { FormBuilder, EventHandlerConstant, eventBus } from 'odca-form';
 import {get_form, update_form, save_form} from "./persistence";
 import {SethPhatToaster} from "./config/toaster";
 
@@ -64,6 +64,10 @@ export default {
       .$refs.FormBuilderTemplate
       .$refs.PreviewComponent
       .hashlinkInfo.ocaRepo.host = process.env.VUE_APP_DEFAULT_OCA_REPOSITORY || ""
+
+    eventBus.$on(EventHandlerConstant.PUBLISH_FORM, ({ info, form }) => {
+      this.saveForm()
+    })
   },
   beforeDestroy() {
     this.formData = null;

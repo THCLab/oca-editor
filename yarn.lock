@@ -901,6 +901,11 @@
     node-rsa "^0.4.0"
     text-encoding "^0.6.1"
 
+"@ttskch/select2-bootstrap4-theme@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@ttskch/select2-bootstrap4-theme/-/select2-bootstrap4-theme-1.4.0.tgz#1e15ed14c5adbd6f86940811e195bde984aa9882"
+  integrity sha512-5WVMdFpQLx0vKxX0/LfapI0aE+qUYOuOuMjOc+ecN8vsr7plcBsgIbp4YtlpLmQR9aqgyM1QyqEiO/FwB+qaqQ==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -6696,14 +6701,15 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-odca-form@^0.0.14:
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.14.tgz#9c57110a23bb57a57183a572cccc1fbb6d0a7c1a"
-  integrity sha512-ObzXETPctVmv7MYKY+kjRzFNJ7Rivvuxr/onNrAt5XYErFh2fDSR9mBmgJb9IHJ44PG6LAttBevqMlBXnG5//g==
+odca-form@^0.0.23:
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.23.tgz#07d5ce914e646300b22691675aa32b0c570698fe"
+  integrity sha512-qp445w42q1mVUOX0u8p3Klw1Hi97Om14oPk1CljkcOJ2qT3op6kaUxDemOpAls9Cv3aal4YkDriKR1na8fQicw==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.15"
     "@fortawesome/free-solid-svg-icons" "^5.7.2"
     "@fortawesome/vue-fontawesome" "^0.1.5"
+    "@ttskch/select2-bootstrap4-theme" "^1.4.0"
     bootstrap "^4.3.1"
     bootstrap-vue "^2.0.0-rc.12"
     core-js "^2.6.5"
@@ -6713,7 +6719,7 @@ odca-form@^0.0.14:
     jszip "^3.2.2"
     moment "^2.22.2"
     node-sass "^4.13.0"
-    odca ">=0.0.9"
+    odca ">=0.0.10"
     popper.js "^1.14.4"
     sass-loader "^8.0.2"
     select2 "^4.0.6-rc.1"
@@ -6726,10 +6732,10 @@ odca-form@^0.0.14:
     vue-router "^3.0.2"
     webpack-jquery-ui "^2.0.1"
 
-odca@>=0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/odca/-/odca-0.0.9.tgz#f1402d5684225b201404197951930c2b672f82d3"
-  integrity sha512-LyjOoMjcZ8YfbQw7KYty5b5UJs4/0F5dSeupelN/I4ocJZrO8wxunl8j6hBe/sTePGW/9MBpC9pgHzW+KqCajw==
+odca@>=0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/odca/-/odca-0.0.10.tgz#605c72c22a109723b414d954d8d3024c52362815"
+  integrity sha512-6J5a1iN0P8A483njyU3afMRBGDhpsHjfHL0QFlblIWoZa+57e9TAOxEIS0T82cNKLI83/9eYra98zi2Wa06j5g==
   dependencies:
     kotlin "^1.3.40"
     link-module-alias "^1.2.0"
@@ -9637,6 +9643,14 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
+
+vue-typeahead-bootstrap@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vue-typeahead-bootstrap/-/vue-typeahead-bootstrap-1.0.2.tgz#e124ed7afe7ac1f66a9f62a7482bf5b00fb7ce98"
+  integrity sha512-oDeiJ5d1UdVazDGIBS0IbCYJCNbOdmHwwIZ3F+Zo/MJCnfUcWXvEA57D6+osdmRFVwYq15guy1rzpcwkHEn7Qw==
+  dependencies:
+    resize-observer-polyfill "^1.5.0"
+    vue "^2.5.17"
 
 vue@^2.5.17, vue@^2.6.6:
   version "2.6.10"
