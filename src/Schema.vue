@@ -4,11 +4,14 @@
       <div class="schema-info">
         <h1>{{name}}</h1>
       </div>
-      <form-builder type="template" ref='FormBuilder' v-model="formData" :options="formBuilderOptions"></form-builder>
-    </div>
-    <div class="text-right mt-3" style="margin: 0px 20px;">
-      <button class="btn btn-default" @click="resetForm">Reset</button>
-      <button class="btn btn-primary" @click="saveForm">Save</button>
+      <form-builder type="template" ref='FormBuilder' v-model="formData" :options="formBuilderOptions">
+        <template #afterSidebar>
+          <div class="text-right mt-3">
+            <button class="btn btn-default" @click="resetForm">Reset</button>
+            <button class="btn btn-primary" @click="saveForm">Save</button>
+          </div>
+        </template>
+      </form-builder>
     </div>
   </div>
 </template>
@@ -26,11 +29,12 @@ export default {
   props: ["name"],
   methods: {
     resetForm() {
-      this.formData.sections[0].row.controls = [];
+      this.formData.sections.forEach(s => s.row.controls = []);
     },
     loadOldForm() {
       try {
         this.formData = JSON.parse(get_form(this.name));
+        this.id = this.formData.uuid
       } catch(e) {
         SethPhatToaster.error("Incorrect JSON model");
       }
