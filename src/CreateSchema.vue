@@ -115,6 +115,49 @@
         </b-row>
       </b-col>
 
+      <b-col cols="6" class="importBaseColMock"></b-col>
+
+      <b-col cols="6" class="importBaseCol">
+        <b-row align-h="center">
+          <b-col cols="12">
+            <h1>Import base layer</h1>
+          </b-col>
+
+          <b-col sm="10" lg="81" class="fileInput">
+              <vue-bootstrap-typeahead
+                size="lg"
+                :showOnFocus="true"
+                :minMatchingChars="1"
+                placeholder="Search in OCA Repository"
+                v-model="ocaSchemaBaseSearch.query"
+                :data="ocaSchemaBaseSearch.data.length == 0 ? ocaSchemaBaseSearch.all : ocaSchemaBaseSearch.data"
+                :serializer="s => s.schemaName"
+                @hit="getOcaSchemaBase"
+              >
+                  <template slot="suggestion" slot-scope="{ data, htmlText }">
+                      <small>{{ data.namespace }}/</small>
+                      <span v-html="htmlText"></span>
+                  </template>
+              </vue-bootstrap-typeahead>
+              {{ ocaSchemaSearch.selected }}
+          </b-col>
+
+          <b-col sm="10" lg="81" class="importBaseBtn">
+            <b-row>
+              <b-col></b-col>
+              <b-col>
+                <b-button block
+                  @click="onImportBase"
+                  :disabled = "!Boolean(ocaSchemaBaseSearch.selected)"
+                  variant="primary">
+                  Import
+                </b-button>
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+      </b-col>
+
       <b-col cols="6" class="calculateHashlinkCol">
         <b-row align-h="center">
           <b-col cols="12">
@@ -158,7 +201,7 @@ import axios from 'axios';
 import { save_schema, save_form } from "./persistence"
 import { generateHashlink } from "./hashlink_generator";
 import { SethPhatToaster } from "./config/toaster"
-import { EventHandlerConstant, eventBus, resolveZipFile,
+import { EventHandlerConstant, eventBus, resolveZipFile, exportToZip,
   renderForm, renderEmptyForm, PreviewComponent } from 'odca-form'
 import VueBootstrapTypeahead from "vue-typeahead-bootstrap";
 
@@ -185,6 +228,13 @@ export default {
         data: [],
         selected: null
       },
+      ocaSchemaBaseFile: null,
+      ocaSchemaBaseSearch: {
+        query: '',
+        all: [],
+        data: [],
+        selected: null
+      },
       form: {
         name: "",
         description: "",
@@ -205,6 +255,8 @@ export default {
           schemaName: x.schema.name
         }
       })
+
+      this.ocaSchemaBaseSearch.all = this.ocaSchemaSearch.all
     })
   },
   watch: {
@@ -246,6 +298,12 @@ export default {
       }
       this.fetchOcaSchemas(input)
     },
+    'ocaSchemaBaseSearch.query': function(input) {
+      if(input.length == 0) {
+        this.ocaSchemaBaseSearch.selected = null
+      }
+      this.fetchOcaSchemasBase(input)
+    },
   },
   methods: {
     onCreateForm() {
@@ -261,26 +319,35 @@ export default {
     },
     onUploadForm() {
       if (this.file) {
-        resolveZipFile(this.file).then(results => {
-          try {
-            results.forEach(schemaData => {
-              let { schema, form } = renderForm(schemaData)
-              save_schema(schema);
-              save_form(schema.name, form)
-            })
-            this.$router.push("schemas");
-          } catch(e) {
-            SethPhatToaster.error("Form data are corrupted");
-          }
-        })
+        this.uploadZip(this.file)
       }
+    },
+    onImportBase() {
+      if (this.ocaSchemaBaseFile) {
+        this.uploadZip(this.ocaSchemaBaseFile)
+      }
+    },
+    uploadZip(zipFile) {
+      resolveZipFile(zipFile).then(results => {
+        try {
+          results.forEach(schemaData => {
+            let { schema, form } = renderForm(schemaData)
+            save_schema(schema);
+            save_form(schema.name, form)
+          })
+          this.$router.push("schemas");
+        } catch(e) {
+          console.log(e)
+          SethPhatToaster.error("Form data are corrupted");
+        }
+      })
     },
     playDemo() {
       axios.get('/tprm.zip', { responseType: 'arraybuffer' })
         .then(zipResponse => {
           const blob = new Blob([zipResponse.data], {type: "octet/stream"});
-          this.file = new File([blob], 'file.zip')
-          this.onUploadForm()
+          const zipFile = new File([blob], 'file.zip')
+          this.uploadZip(zipFile)
         })
     },
     formatNames(files) {
@@ -352,6 +419,28 @@ export default {
       })
       return langBranches
     },
+    fetchOcaSchemasBase(input) {
+      axios.get(`${this.ocaRepo.host}/api/v2/schemas?suggest=${input}`)
+      .then(r => {
+        this.ocaSchemaBaseSearch.data = r.data.map(x => {
+          return {
+            namespace: x.namespace,
+            DRI: x.DRI,
+            schemaName: x.schema.name
+          }
+        })
+      })
+    },
+    getOcaSchemaBase: async function(schema) {
+      const result = await axios.get(`${this.ocaRepo.host}/api/v2/schemas?_index=branch&schema_base=${schema.DRI}`)
+      let url = `${this.ocaRepo.host}/api/v2/schemas/${schema.namespace}/${schema.DRI}/archive`
+      axios.get(url)
+        .then(async (schemaBaseResponse) => {
+          const blob = await exportToZip({ schemaBase: schemaBaseResponse.data })
+          this.ocaSchemaBaseFile = new File([blob], 'file.zip')
+          this.ocaSchemaBaseSearch.selected = schemaBaseResponse.data
+        })
+    },
     preview() {
       try {
           this.$refs.PreviewComponent.openModal(this.ocaForm);
@@ -379,7 +468,12 @@ export default {
     min-height: 360px;
   }
 
-  .createBtn, .uploadBtn {
+  .importBaseCol {
+    position: relative;
+    min-height: 210px;
+  }
+
+  .createBtn, .uploadBtn, .importBaseBtn {
     position: absolute;
     bottom: 10%;
   }
@@ -393,11 +487,11 @@ export default {
     padding-top: 10px;
   }
 
-  .newFormCol, .calculateHashlinkCol {
+  .newFormCol, .importBaseColMock, .calculateHashlinkCol {
     border-right: 1px solid #ced4da;
   }
 
-  .fileCol, .convertCsvCol {
+  .fileCol, .importBaseCol, .convertCsvCol {
     border-left: 1px solid #ced4da;
   }
 </style>
