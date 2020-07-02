@@ -1,5 +1,10 @@
 export function save_form(title, formData) {
-  return localStorage.setItem(title, JSON.stringify(formData));
+  const form = get_form(title);
+  if (form) {
+    return form;
+  } else {
+    return localStorage.setItem(title, JSON.stringify(formData));
+  }
 }
 
 export function get_form(title) {
