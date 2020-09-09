@@ -20,6 +20,11 @@
     <b-row align-h="center">
       <b-col cols="12">
         <b-table striped hover :fields="attr_fields" :items="standards">
+          <template v-slot:cell(operations)="row">
+            <b-button variant="outline-danger" @click="removeStandard(row.item)" size="sm" class="mr-2">
+              Delete
+            </b-button>
+          </template>
         </b-table>
       </b-col>
     </b-row>
@@ -41,7 +46,8 @@ export default {
       standards: [],
       attr_fields: [
         { key: "name", label: "Name" },
-        { key: "description", label: "Description" }
+        { key: "description", label: "Description" },
+        { key: "operations", label: "Operations" }
       ]
     };
   },
@@ -72,6 +78,8 @@ export default {
     addStandard(standard) {
       return this.standardsStorage.add(standard)
     },
+    removeStandard(standard) {
+      return this.standardsStorage.remove(standard)
     },
     formatNames(files) {
       if (files.length === 1) {

@@ -21,6 +21,11 @@ export default class StandardsStorage {
     this.persist()
     return { success: true }
   }
+
+  remove(standard: Standard) {
+    this.list = this.list.filter((s: Standard) => s.name != standard.name)
+    this.persist()
+    return { success: true }
   }
 
   all(): Standard[] {
