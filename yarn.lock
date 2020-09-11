@@ -6701,10 +6701,10 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-odca-form@^0.0.25:
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.25.tgz#9a4149bf75a6e84d8690b8bf4f068d74f6ed9a65"
-  integrity sha512-4QFwkevrPEhRrm5qQxDitWyaLGstVL3F55uhL9wCJqcyLZpyEkrfLVCg1xM/xBj5gaOGEiR0XZoP0T1a4mkFOw==
+odca-form@0.0.33:
+  version "0.0.33"
+  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.33.tgz#76fbc2efaa3d2993f95e96183e7aeb2bc8b98ac8"
+  integrity sha512-aHmn3yP6sdNERFCYjpcebvjd0YhB0gZyb3hnoZYDhFKcYizG+J74fSkKPl4L3TrKdWfmXf8K4VxeLw9MZSSXpQ==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.15"
     "@fortawesome/free-solid-svg-icons" "^5.7.2"
@@ -6727,10 +6727,10 @@ odca-form@^0.0.25:
     underscore-deep-extend "^1.1.5"
     vue "^2.6.6"
     vue-affix "^0.5.2"
-    vue-bootstrap-typeahead "^0.2.6"
     vue-class-component "^7.0.2"
     vue-property-decorator "^8.1.0"
     vue-router "^3.0.2"
+    vue-typeahead-bootstrap "^2.5.1"
     vuex "^3.5.1"
     webpack-jquery-ui "^2.0.1"
 
@@ -9560,14 +9560,6 @@ vue-affix@^0.5.2:
   resolved "https://registry.yarnpkg.com/vue-affix/-/vue-affix-0.5.2.tgz#1f22f36262e3b867788adb00ae5bc3c3d12ea64b"
   integrity sha512-60TedWOHHuqTpaZsTni9yyc+FwH4qP/Kjt6QegK7Hv1G+tP/CJ7+K1mTRsrEJkjUq55Q0a7hjHTblv+Y+u4o0Q==
 
-vue-bootstrap-typeahead@^0.2.6:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/vue-bootstrap-typeahead/-/vue-bootstrap-typeahead-0.2.6.tgz#8c1999a00bf4bf9fc906bae3a462482482cbc297"
-  integrity sha512-BcUAnvfN+PS0StL6E3endd37P7HUt9otk+8m7tsa2gkt2I2KY8O2Dma49oR8ie8iletvJAlAqpN+klF6ktPULQ==
-  dependencies:
-    resize-observer-polyfill "^1.5.0"
-    vue "^2.5.17"
-
 vue-class-component@^7.0.2, vue-class-component@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.1.0.tgz#b33efcb10e17236d684f70b1e96f1946ec793e87"
@@ -9655,6 +9647,14 @@ vue-typeahead-bootstrap@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/vue-typeahead-bootstrap/-/vue-typeahead-bootstrap-1.0.2.tgz#e124ed7afe7ac1f66a9f62a7482bf5b00fb7ce98"
   integrity sha512-oDeiJ5d1UdVazDGIBS0IbCYJCNbOdmHwwIZ3F+Zo/MJCnfUcWXvEA57D6+osdmRFVwYq15guy1rzpcwkHEn7Qw==
+  dependencies:
+    resize-observer-polyfill "^1.5.0"
+    vue "^2.5.17"
+
+vue-typeahead-bootstrap@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/vue-typeahead-bootstrap/-/vue-typeahead-bootstrap-2.5.1.tgz#b0adfd082148b0687a0b930aea94fe4f9df38dd6"
+  integrity sha512-KVWFDih0A+qhZTW4BVgsCKj1UYDjfKufRPTQQO4vjpPnymGAtYXBeP7Yx53nOvZumDPpU1zoGUZlAPa4gBFVjg==
   dependencies:
     resize-observer-polyfill "^1.5.0"
     vue "^2.5.17"

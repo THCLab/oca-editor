@@ -197,6 +197,7 @@
 </template>
 
 <script>
+import StandardsStorage from '@/storages/StandardsStorage'
 import axios from 'axios';
 import { save_schema, save_form } from "./persistence"
 import { generateHashlink } from "./hashlink_generator";
@@ -212,6 +213,7 @@ export default {
   components: { VueBootstrapTypeahead, PreviewComponent },
   data() {
     return {
+      standardsStorage: new StandardsStorage(),
       file: null,
       calculatedFile: null,
       csvFile: null,
@@ -330,15 +332,26 @@ export default {
     uploadZip(zipFile) {
       resolveZipFile(zipFile).then(results => {
         try {
+          if(results.length === 0) { throw "Invalid file" }
           results.forEach(schemaData => {
-            let { schema, form } = renderForm(schemaData)
+            let schema, form
+            try {
+              const renderedForm = renderForm(schemaData)
+              schema = renderedForm.schema
+              form = renderedForm.form
+            } catch(e) {
+              throw "OCA Form data are corrupted"
+            }
+            if (schema.classification &&
+                !this.standardsStorage.findByName(schema.classification)) {
+              throw `${schema.classification} standard is undefined`
+            }
             save_schema(schema);
-            save_form(schema.name, form)
+            save_form(schema.name, form, schema.classification)
           })
           this.$router.push("schemas");
         } catch(e) {
-          console.log(e)
-          SethPhatToaster.error("Form data are corrupted");
+          SethPhatToaster.error(e);
         }
       })
     },

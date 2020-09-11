@@ -4,7 +4,7 @@
       <div class="schema-info">
         <h1>{{name}}</h1>
       </div>
-      <form-builder type="template" ref='FormBuilder' v-model="formData" :options="formBuilderOptions">
+      <form-builder type="template" ref='FormBuilder' v-model="formData" :options="formBuilderOptions" :standards="standardsStorage.all()" :standard="schemaData.classification">
         <template #afterSidebar>
           <div class="text-right mt-3">
             <button class="btn btn-default" @click="resetForm">Reset</button>
@@ -17,8 +17,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { FormBuilder, EventHandlerConstant, eventBus } from 'odca-form';
-import {get_form, update_form, save_form} from "./persistence";
+import StandardsStorage from "./storages/StandardsStorage";
+import { get_form, update_form, save_form, get_schema } from "./persistence";
 import {SethPhatToaster} from "./config/toaster";
 
 export default {
@@ -33,6 +35,7 @@ export default {
     },
     loadOldForm() {
       try {
+        this.schemaData = get_schema(this.name);
         this.formData = JSON.parse(get_form(this.name));
         this.id = this.formData.uuid
       } catch(e) {
@@ -44,10 +47,11 @@ export default {
         SethPhatToaster.error("Please input your form config title");
         return;
       }
+      const standardName = this.current_standard ? this.current_standard.name : ''
       if (this.id !== "") {
-        update_form(this.id, this.name, this.formData);
+        update_form(this.id, this.name, this.formData, standardName);
       } else {
-        save_form(this.name, this.formData);
+        save_form(this.name, this.formData, standardName);
       }
       SethPhatToaster.success("Saved");
     }
@@ -74,10 +78,12 @@ export default {
     })
   },
   beforeDestroy() {
+    this.schemaData = null;
     this.formData = null;
   },
   data() {
     return {
+      schemaData: null,
       formData: null,
       id: "",
       formBuilderOptions: {
@@ -86,8 +92,12 @@ export default {
             // console.log(sectionInfo)
           }
         }
-      }
+      },
+      standardsStorage: new StandardsStorage()
     };
+  },
+  computed: {
+    ...mapState('Standards', ['current_standard'])
   }
 };
 </script>
