@@ -2,11 +2,13 @@ export default class Standard {
   name: string;
   description: string;
   attributes: string[];
+  deletable: boolean;
 
-  constructor(name: string, description: string, attributes: string[]) {
+  constructor(name: string, description: string, attributes: string[], deletable: boolean = true) {
     this.name = name
     this.description = description
     this.attributes = attributes
+    this.deletable = deletable
   }
 
   static deserialize(json: any) {

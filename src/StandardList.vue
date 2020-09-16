@@ -21,7 +21,7 @@
       <b-col cols="12">
         <b-table striped hover :fields="attr_fields" :items="standards">
           <template v-slot:cell(operations)="row">
-            <b-button variant="outline-danger" @click="removeStandard(row.item)" size="sm" class="mr-2">
+            <b-button v-if="row.item.deletable" variant="outline-danger" @click="removeStandard(row.item)" size="sm" class="mr-2">
               Delete
             </b-button>
           </template>
