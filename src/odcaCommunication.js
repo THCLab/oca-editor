@@ -10,7 +10,7 @@ export const initOdcaCommunication = () => {
     SethPhatToaster.error(error);
   })
 
-  eventBus.$on(EventHandlerConstant.EXPORT_FORM, async ({ form, standard }) => {
+  eventBus.$on(EventHandlerConstant.EXPORT_FORM, async ({ form }) => {
     let schema
 
     try {
@@ -18,7 +18,7 @@ export const initOdcaCommunication = () => {
       if (!baseForm) {
           throw "Form cannot be exported"
       }
-      schema = createSchemaFromForm(baseForm, form, standard)
+      schema = createSchemaFromForm(baseForm, form)
     } catch(e) {
       SethPhatToaster.error(e);
     }
@@ -33,7 +33,7 @@ export const initOdcaCommunication = () => {
     }
   })
 
-  eventBus.$on(EventHandlerConstant.PUBLISH_FORM, async ({ info, form, standard }) => {
+  eventBus.$on(EventHandlerConstant.PUBLISH_FORM, async ({ info, form }) => {
     let schema
 
     try {
@@ -41,7 +41,7 @@ export const initOdcaCommunication = () => {
       if (!baseForm) {
           throw "Form cannot be exported"
       }
-      schema = createSchemaFromForm(baseForm, form, standard)
+      schema = createSchemaFromForm(baseForm, form)
     } catch(e) {
       SethPhatToaster.error(e);
     }

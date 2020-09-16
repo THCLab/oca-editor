@@ -5,7 +5,7 @@ export function save_form(title, formData, standardName='') {
   } else {
     const schema = get_schema(title)
     if(schema) {
-      schema.classification = standardName
+      schema.standard = standardName
       update_schema(schema)
     }
     return localStorage.setItem(title, JSON.stringify(formData));
@@ -19,7 +19,7 @@ export function get_form(title) {
 export function update_form(id, title, formData, standardName='') {
   const schema = get_schema(title)
   if(schema) {
-    schema.classification = standardName
+    schema.standard = standardName
     update_schema(schema)
   }
   return localStorage.setItem(title, JSON.stringify(formData));

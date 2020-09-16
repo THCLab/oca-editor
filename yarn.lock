@@ -6701,10 +6701,10 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-odca-form@0.0.33:
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.33.tgz#76fbc2efaa3d2993f95e96183e7aeb2bc8b98ac8"
-  integrity sha512-aHmn3yP6sdNERFCYjpcebvjd0YhB0gZyb3hnoZYDhFKcYizG+J74fSkKPl4L3TrKdWfmXf8K4VxeLw9MZSSXpQ==
+odca-form@^0.0.34:
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/odca-form/-/odca-form-0.0.34.tgz#560b46ecd2a2d51ef0376eeb544fe6dfe854761d"
+  integrity sha512-so4Ph2WaqWPZoZtqbrqngqV28a86hF4NTcg0pUygf9z8lt8HwD8kZg0BpMJycx2XPiTPhqW5KF0BF6Vr8KTiHg==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.15"
     "@fortawesome/free-solid-svg-icons" "^5.7.2"

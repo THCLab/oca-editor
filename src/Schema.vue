@@ -4,7 +4,7 @@
       <div class="schema-info">
         <h1>{{name}}</h1>
       </div>
-      <form-builder type="template" ref='FormBuilder' v-model="formData" :options="formBuilderOptions" :standards="standardsStorage.all()" :standard="schemaData.classification">
+      <form-builder type="template" ref='FormBuilder' v-model="formData" :options="formBuilderOptions" :standards="standardsStorage.all()" :standard="schemaData.standard">
         <template #afterSidebar>
           <div class="text-right mt-3">
             <button class="btn btn-default" @click="resetForm">Reset</button>

@@ -342,12 +342,8 @@ export default {
             } catch(e) {
               throw "OCA Form data are corrupted"
             }
-            if (schema.classification &&
-                !this.standardsStorage.findByName(schema.classification)) {
-              throw `${schema.classification} standard is undefined`
-            }
             save_schema(schema);
-            save_form(schema.name, form, schema.classification)
+            save_form(schema.name, form)
           })
           this.$router.push("schemas");
         } catch(e) {
