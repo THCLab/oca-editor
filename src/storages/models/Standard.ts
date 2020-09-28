@@ -17,6 +17,8 @@ export default class Standard {
 
   isValid() {
     if (!this.name || !this.attributes) { return false }
+    if (!Array.isArray(this.attributes)) { return false }
+    if (this.attributes.some(attr => typeof attr !== 'string')) { return false }
     return true
   }
 }
