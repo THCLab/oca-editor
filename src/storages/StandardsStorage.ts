@@ -57,6 +57,7 @@ export default class StandardsStorage {
   }
 
   private persist() {
-    localStorage.setItem('_standards', JSON.stringify(this.list))
+    const definedStandards = this.list.slice(default_standards.length)
+    localStorage.setItem('_standards', JSON.stringify(definedStandards))
   }
 }
