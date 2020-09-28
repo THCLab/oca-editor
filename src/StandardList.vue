@@ -15,6 +15,11 @@
           :disabled="selectedFiles.length === 0">Upload</b-button>
       </b-col>
     </b-row>
+    <b-row>
+      <b-col align-self="center" offset-md="2" cols="2">
+        <a href="https://gist.github.com/olichwiruk/e49d999609f0ae48ba493b207a5c7ee2#file-standard-json" target="_blank">Example file</a>
+      </b-col>
+    </b-row>
     <br>
 
     <b-row align-h="center">
