@@ -4,18 +4,17 @@
       title="Example component"
       active
       :todos="todos"
-      :meta="meta"
-    ></example-component>
+      :meta="meta"></example-component>
   </q-page>
 </template>
 
 <script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/CompositionComponent.vue';
-import { defineComponent, ref } from 'vue';
+import { Todo, Meta } from '@/components/models'
+import ExampleComponent from '@/components/CompositionComponent.vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  name: 'PageIndex',
+  name: 'Home',
   components: { ExampleComponent },
   setup() {
     const todos = ref<Todo[]>([
@@ -39,11 +38,11 @@ export default defineComponent({
         id: 5,
         content: 'ct5'
       }
-    ]);
+    ])
     const meta = ref<Meta>({
       totalCount: 1200
-    });
-    return { todos, meta };
+    })
+    return { todos, meta }
   }
-});
+})
 </script>

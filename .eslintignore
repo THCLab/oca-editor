@@ -3,7 +3,9 @@
 /src-capacitor
 /src-cordova
 /.quasar
+quasar.conf.js
 /node_modules
 .eslintrc.js
 babel.config.js
 /src-ssr
+/src/boot
