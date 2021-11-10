@@ -31,6 +31,7 @@ module.exports = configure(function (ctx) {
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
       'axios',
+      'oca'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -79,6 +80,17 @@ module.exports = configure(function (ctx) {
         config.resolve
           .alias
           .set('@', path.resolve(__dirname, 'src'))
+
+        config
+          .plugin('copy-webpack-plugin')
+          .use(
+            require.resolve('copy-webpack-plugin'),
+            [{
+              patterns: [
+                { context: 'node_modules/oca.js-form-core/dist', from: '*.wasm' }
+              ]
+            }]
+          )
       },
     },
 
