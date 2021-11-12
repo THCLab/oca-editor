@@ -4383,10 +4383,10 @@ oca.js-form-core@^0.0.4:
   dependencies:
     oca.js "0.1.19"
 
-oca.js-form-quasar@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/oca.js-form-quasar/-/oca.js-form-quasar-0.0.1.tgz#a3ebc934a1a47b4f89af30e3dcf0225e6a3ea597"
-  integrity sha512-iEigfyp6eDxAoe1AHMRULBc+EPT5PUzbg4nP3KSvCZNCC8nDjD6IAZQjTVNn5mgER/rlGp4Gj2vARKrUYJjndQ==
+oca.js-form-quasar@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/oca.js-form-quasar/-/oca.js-form-quasar-0.0.2.tgz#f7c54afb86b72dbe21d0ebe4903dcd7c231f8d4d"
+  integrity sha512-cm4fJfB5GjEwfxm0b3O/FWFPSXdXjTfqxpSeJD6qmpvSdTVi75f3p/oQCOhs+TuJNFwO9HUV63iEeKq4GSX5XQ==
 
 oca.js@0.1.19:
   version "0.1.19"

@@ -1,7 +1,12 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <Form :structure="structures.test" default-language="pl_PL" />
-    <Form :structure="structures.onboarding" default-language="pl_PL" />
+    <Form class="form" :structure="structures.test" default-language="en_EN" />
+
+    <Form
+      class="form"
+      readonly
+      :structure="structures.onboarding"
+      default-language="pl_PL" />
   </q-page>
 </template>
 
@@ -27,3 +32,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+.form {
+  width: 40vw;
+}
+</style>
