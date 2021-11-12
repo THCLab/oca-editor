@@ -8,6 +8,8 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./",
     "format": "prettier --config .prettierrc 'src/**/*.(ts|vue)' --write",
+    "dev": "quasar dev",
+    "build": "quasar build",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
