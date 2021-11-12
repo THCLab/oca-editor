@@ -4398,10 +4398,10 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-oca.js-form-core@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/oca.js-form-core/-/oca.js-form-core-0.0.6.tgz#96e336d5c25700efa2dc70335998c8a95f39ae62"
-  integrity sha512-QrEhqYlS+7bZN/yjWFe/LgkOzwJGBCP83vW9gfzwkvu3/yLf5tqOJt6zsQuD3DvpyswI0hN6sTjrasyewcJq2w==
+oca.js-form-core@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/oca.js-form-core/-/oca.js-form-core-0.0.7.tgz#56aee7f7ee19d96ccabbdbba9ac25d85920e7732"
+  integrity sha512-MKBuZnt/3FvvnkSmp7dlZfk0+iHe3ZRVmT5It+Wv3UIR8jHqG0PX9IodEzEbNjpwQmI1ZY9ZrdKfKz7bFnzOzg==
   dependencies:
     jszip "^3.7.1"
     oca.js "0.1.19"
