@@ -31,7 +31,8 @@ module.exports = configure(function (ctx) {
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
       'axios',
-      'oca'
+      'oca',
+      'store'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

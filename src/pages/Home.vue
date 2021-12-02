@@ -2,7 +2,7 @@
   <q-page class="q-pa-md">
     <div class="column items-center justify-evenly" style="height: 100vh">
       <div class="col-1">
-        <q-file v-model="file" label="Pick OCA zip file" filled />
+        <q-file v-model="file" label="Pick OCA zip file" accept=".zip" filled />
       </div>
 
       <div class="col-10">
@@ -19,24 +19,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch, getCurrentInstance } from 'vue'
 import { components } from 'oca.js-form-quasar'
 const { Form } = components
-import { createStructure, resolveFromZip } from 'oca.js-form-core'
+import { resolveFromZip, OcaJs } from 'oca.js-form-core'
 
 export default defineComponent({
   name: 'Home',
   components: { Form },
   setup() {
+    const currentInstance = getCurrentInstance()
+    if (!currentInstance) {
+      return
+    }
+    const $ocaJs = currentInstance.appContext.config.globalProperties
+      .$ocaJs as OcaJs
     const structure = ref()
     const file = ref()
     const loading = ref(false)
 
     watch(file, async newFile => {
       loading.value = true
-      const oca = await resolveFromZip(newFile)
-      loading.value = false
-      structure.value = createStructure(oca)
+      try {
+        const oca = await resolveFromZip(newFile)
+        structure.value = await $ocaJs.createStructure(oca)
+      } catch (e) {
+        console.error(e)
+        structure.value = null
+      } finally {
+        loading.value = false
+      }
     })
 
     return {
