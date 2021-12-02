@@ -12,7 +12,7 @@
           :key="structure"
           class="form"
           :structure="structure"
-          default-language="pl_PL" />
+          :default-language="defaultLanguage" />
       </div>
     </div>
   </q-page>
@@ -23,11 +23,14 @@ import { defineComponent, ref, watch, getCurrentInstance } from 'vue'
 import { components } from 'oca.js-form-quasar'
 const { Form } = components
 import { resolveFromZip, OcaJs } from 'oca.js-form-core'
+import { useStore } from 'src/store'
 
 export default defineComponent({
   name: 'Home',
   components: { Form },
   setup() {
+    const $store = useStore()
+    const defaultLanguage = $store.state.settings.language
     const currentInstance = getCurrentInstance()
     if (!currentInstance) {
       return
@@ -52,6 +55,7 @@ export default defineComponent({
     })
 
     return {
+      defaultLanguage,
       structure,
       loading,
       file

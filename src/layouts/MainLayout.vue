@@ -76,6 +76,13 @@ const modules = [
       path: '/standards'
     },
     {
+      title: 'Settings',
+      icon: 'settings',
+      path: '/settings'
+    }
+  ],
+  [
+    {
       title: 'About',
       icon: 'info',
       path: '/about'
