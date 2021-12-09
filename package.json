@@ -16,8 +16,8 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "oca.js-form-core": "^0.0.9",
-    "oca.js-form-quasar": "^0.0.5",
+    "oca.js-form-core": "^0.0.10",
+    "oca.js-form-quasar": "^0.0.6",
     "quasar": "^2.0.0",
     "vuex": "^4.0.1"
   },

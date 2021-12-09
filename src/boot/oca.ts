@@ -5,7 +5,8 @@ export default boot(async ({ app, store }) => {
   await init()
 
   const ocaJs = new OcaJs({
-    dataVaults: store.state.settings.dataVaultUrls
+    dataVaults: store.state.settings.dataVaultUrls,
+    ocaRepositories: store.state.settings.ocaRepositoryUrls
   })
 
   app.config.globalProperties.$ocaJs = ocaJs

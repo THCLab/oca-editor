@@ -4422,24 +4422,24 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-oca.js-form-core@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/oca.js-form-core/-/oca.js-form-core-0.0.9.tgz#e247e45ca1c6074e7e635ab94dd61f2fb6579634"
-  integrity sha512-1cmLUqcCmvLI7v8uAS7Do8N42SDMY5qHJpPkJLCB0r5wjh1wZy6kVjntgGEw6AUjeV++7KGeFeUm97PkIKTkdg==
+oca.js-form-core@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/oca.js-form-core/-/oca.js-form-core-0.0.10.tgz#318f86de6343dccf3427c076f3eae92acc558c35"
+  integrity sha512-WBrUS2oBEmV8iRayrzi/oiHTm9xfqqrgVw6jXg8EWzrLVSDkpFYoqKv5RRlDU38jPm+iT42/9F2cKu0+LMYeBw==
   dependencies:
     axios "^0.24.0"
     jszip "^3.7.1"
-    oca.js "0.1.22"
+    oca.js "0.1.25"
 
-oca.js-form-quasar@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/oca.js-form-quasar/-/oca.js-form-quasar-0.0.5.tgz#8f4a8e171e34a3012dbd05b64952c3b5f8b437ad"
-  integrity sha512-e3C7PeGpDBUFuMHCbBmV4XXgFinNpgwBXrAFaRqvoAInz+Qnz58Si2fKEtzGaoXFgRMEwwv+qXgY2dpfPAEuPw==
+oca.js-form-quasar@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/oca.js-form-quasar/-/oca.js-form-quasar-0.0.6.tgz#12ab15d63b0d7eb1d75bb90d2eb594481690a4a0"
+  integrity sha512-+3/RQ7aVMEmKPYOKVlvyopRqnfVbh7DJCqy363FOFiaZBD/F4OXh4dSlDWcE8o8gr9J6fPlM24xNuYmbwd7A3g==
 
-oca.js@0.1.22:
-  version "0.1.22"
-  resolved "https://registry.yarnpkg.com/oca.js/-/oca.js-0.1.22.tgz#ab3894ce67991dc792c0ef9bb5b0911c85dae586"
-  integrity sha512-5u1Du6STyf0NJUCD/V6UL6LAMx9IgPmuMomCNJqr0p9op2JzeRUQWo3q/GO6kbM0UyWdZKj5Cz/LtxQtFvavgg==
+oca.js@0.1.25:
+  version "0.1.25"
+  resolved "https://registry.yarnpkg.com/oca.js/-/oca.js-0.1.25.tgz#71cb67d7a4c085b63ef8c3bddf91842724b52959"
+  integrity sha512-jw/INkb5Bq56U1dGjgQMa92EY24lLiFQvUev9JMkCtkmcob+fP2uoOi/o4D3BYcjJfd3hpLdUyGzjsfk9GV/Mw==
 
 on-finished@~2.3.0:
   version "2.3.0"

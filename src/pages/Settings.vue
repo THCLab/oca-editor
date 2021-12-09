@@ -23,6 +23,34 @@
           @filter="filterFn" />
 
         <q-card-section>
+          <div class="text-subtitle1">OCA Repositories</div>
+          <div
+            v-for="(_, i) in ocaRepositoryUrls"
+            :key="i"
+            class="row items-center">
+            <q-icon
+              name="remove_circle_outline"
+              class="col-1 cursor-pointer"
+              size="sm"
+              left
+              @click="removeOcaRepositoryUrl(i)" />
+            <q-input
+              v-model="ocaRepositoryUrls[i].value"
+              class="col"
+              label="OCA Repository URL"
+              dense />
+          </div>
+          <div class="row items-center" style="height: 40px">
+            <q-icon
+              name="add_circle_outline"
+              class="col-1 cursor-pointer"
+              size="sm"
+              left
+              @click="addOcaRepositoryUrl" />
+          </div>
+        </q-card-section>
+
+        <q-card-section>
           <div class="text-subtitle1">Data Vaults</div>
           <div
             v-for="(_, i) in dataVaultUrls"
@@ -65,6 +93,22 @@ export default defineComponent({
     const $store = useStore()
     const languages = ref(l)
 
+    const ocaRepositoryUrls = ref(
+      $store.state.settings.ocaRepositoryUrls.map(el => ref(el))
+    )
+    const addOcaRepositoryUrl = () => {
+      ocaRepositoryUrls.value.push(ref(''))
+    }
+    const removeOcaRepositoryUrl = (i: number) => {
+      ocaRepositoryUrls.value.splice(i, 1)
+    }
+    watch(ocaRepositoryUrls.value, async (value: Ref<string>[]) => {
+      await $store.dispatch(
+        'settings/updateOcaRepositoryUrl',
+        value.map(el => el.value)
+      )
+    })
+
     const dataVaultUrls = ref(
       $store.state.settings.dataVaultUrls.map(el => ref(el))
     )
@@ -98,10 +142,13 @@ export default defineComponent({
     }
 
     return {
-      dataVaultUrls,
       defaultLanguage,
       languages,
       filterFn,
+      ocaRepositoryUrls,
+      addOcaRepositoryUrl,
+      removeOcaRepositoryUrl,
+      dataVaultUrls,
       addDataVaultUrl,
       removeDataVaultUrl
     }
