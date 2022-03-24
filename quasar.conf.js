@@ -88,7 +88,8 @@ module.exports = configure(function (ctx) {
             require.resolve('copy-webpack-plugin'),
             [{
               patterns: [
-                { context: 'node_modules/oca.js-form-core/dist', from: '*.wasm', to: './js' }
+                { context: 'node_modules/oca.js-form-core/dist', from: '*.wasm', to: './js' },
+                { context: 'node_modules/oca.js-form-core/dist', from: '*.wasm' }
               ]
             }]
           )

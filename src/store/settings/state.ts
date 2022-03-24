@@ -6,9 +6,7 @@ export interface SettingsStateInterface {
 
 function state(): SettingsStateInterface {
   return {
-    dataVaultUrls: [
-      'https://data-vault.argo.colossi.network/api/v2/files'
-    ],
+    dataVaultUrls: ['https://data-vault.argo.colossi.network/api/v2/files'],
     ocaRepositoryUrls: [
       'https://repository.oca.argo.colossi.network/api/v4/schemas'
     ],
