@@ -37,6 +37,7 @@
 
               <q-separator />
 
+              <!-- eslint-disable vue/no-v-html -->
               <q-tab-panels v-model="tab" animated>
                 <q-tab-panel
                   style="display: flex; justify-content: center"
@@ -59,6 +60,7 @@
                     v-html="htmlOCACredential" />
                 </q-tab-panel>
               </q-tab-panels>
+              <!--eslint-enable-->
             </q-card>
           </div>
         </div>
@@ -98,11 +100,12 @@ export default defineComponent({
         const oca = await resolveFromZip(newFile)
         const structure = await $ocaJs.createStructure(oca)
         if (structure.credentialLayout) {
-          const credential = renderOCACredential(
+          const credential = await renderOCACredential(
             structure,
             {},
             {
-              dataVaultUrl: $store.state.settings.dataVaultUrls[0]
+              dataVaultUrl: $store.state.settings.dataVaultUrls[0],
+              ocaRepoHostUrl: 'https://repository.oca.argo.colossi.network'
             }
           )
           htmlOCACredential.value = credential.node
@@ -113,7 +116,7 @@ export default defineComponent({
         }
 
         if (structure.formLayout) {
-          const form = renderOCAForm(
+          const form = await renderOCAForm(
             structure,
             {},
             {
