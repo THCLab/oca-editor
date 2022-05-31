@@ -10,7 +10,23 @@
             accept=".zip"
             filled />
         </div>
-        <div class="col-4" />
+        <div class="col-1" />
+        <div class="col-3">
+          <div class="row items-start">
+            <q-input v-model="namespace" label="Namespace" dense />
+            <q-btn
+              color="primary"
+              :disabled="!file || !namespace"
+              @click="publish">
+              Publish
+            </q-btn>
+          </div>
+          <div class="row">
+            <!-- eslint-disable vue/no-v-html -->
+            <span v-html="publishResult"></span>
+            <!-- eslint-enable vue/no-v-html -->
+          </div>
+        </div>
       </div>
 
       <q-separator /><br />
@@ -74,6 +90,7 @@ import { defineComponent, ref, watch, getCurrentInstance } from 'vue'
 import { resolveFromZip, OcaJs } from 'oca.js-form-core'
 import { useStore } from 'src/store'
 import { renderOCAForm, renderOCACredential } from 'oca.js-form-html'
+import { AxiosInstance } from 'axios'
 
 export default defineComponent({
   name: 'Home',
@@ -86,13 +103,19 @@ export default defineComponent({
     }
     const $ocaJs = currentInstance.appContext.config.globalProperties
       .$ocaJs as OcaJs
+    const $axios = currentInstance.appContext.config.globalProperties
+      .$axios as AxiosInstance
     const file = ref()
+    const namespace = ref('')
+    const publishResult = ref('')
     const loading = ref(false)
     const htmlOCAForm = ref()
     const htmlOCACredential = ref()
     const credentialWidth = ref('0')
     const credentialHeight = ref('0')
     const tab = ref('form')
+
+    const ocaRepoHostUrl = $store.state.settings.ocaRepositoryUrls[0]
 
     watch(file, async newFile => {
       loading.value = true
@@ -104,8 +127,9 @@ export default defineComponent({
             structure,
             {},
             {
+              defaultLanguage,
               dataVaultUrl: $store.state.settings.dataVaultUrls[0],
-              ocaRepoHostUrl: 'https://repository.oca.argo.colossi.network'
+              ocaRepoHostUrl
             }
           )
           htmlOCACredential.value = credential.node
@@ -137,6 +161,22 @@ export default defineComponent({
       }
     })
 
+    const publish = async () => {
+      const requestUrl = `${ocaRepoHostUrl}/api/v0.1/namespaces/${namespace.value}/schemas`
+      const formData = new FormData()
+      formData.append('file', file.value)
+
+      const publishResponse = await $axios.post(requestUrl, formData)
+      /* eslint-disable */
+      if (publishResponse.data.success) {
+        publishResult.value = `Success! <a href="${publishResponse.data.path}">Click here to open</a>`
+      } else {
+        console.error(publishResponse.data.errors)
+        publishResult.value = 'Failure! Open dev console for more information'
+      }
+      /* eslint-enable */
+    }
+
     return {
       htmlOCAForm,
       htmlOCACredential,
@@ -145,6 +185,9 @@ export default defineComponent({
       credentialWidth,
       credentialHeight,
       tab,
+      publish,
+      publishResult,
+      namespace,
       file
     }
   }
