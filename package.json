@@ -1,6 +1,6 @@
 {
   "name": "oca-editor",
-  "version": "0.2.3",
+  "version": "0.2.5",
   "description": "Tool allowing to play with unify data language (OCA)",
   "productName": "OCA Editor",
   "author": "Marcin Olichwiruk <marcin@opensoftware.pl>",
@@ -16,8 +16,8 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "oca.js-form-core": "^0.0.22",
-    "oca.js-form-html": "^0.0.15",
+    "oca.js-form-core": "^0.0.23",
+    "oca.js-form-html": "^0.0.16",
     "oca.js-form-quasar": "^0.0.6",
     "quasar": "^2.0.0",
     "vuex": "^4.0.1"

@@ -120,7 +120,7 @@ export default defineComponent({
             structure,
             {},
             {
-              showPii: true,
+              showFlagged: true,
               defaultLanguage,
               onSubmitHandler: capturedData => console.log(capturedData)
             }
