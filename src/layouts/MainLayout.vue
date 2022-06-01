@@ -76,6 +76,11 @@ const modules = [
       path: '/standards'
     },
     {
+      title: 'Tools',
+      icon: 'architecture',
+      path: '/tools'
+    },
+    {
       title: 'Settings',
       icon: 'settings',
       path: '/settings'
